@@ -1,0 +1,871 @@
+{
+	"count":	383,
+	"next":	"https://gutendex.com/books/?page=2&search=The+bible",
+	"previous":	null,
+	"results":	[{
+			"id":	10,
+			"title":	"The King James Version of the Bible",
+			"authors":	[],
+			"summaries":	["\"The King James Version of the Bible\" is an English translation of the Christian Bible commissioned in 1604 and published in 1611 under King James VI and I. This translation for the Church of England contains 80 books and was created to address controversies surrounding existing versions. Celebrated for its majestic style, it has profoundly shaped English literature, Christian thought, and everyday speech for over four centuries. The translation became the unchallenged standard in English Protestant churches and remains one of the most widely read versions today. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible"],
+			"bookshelves":	["Banned Books List from the American Library Association", "Category: Classics of Literature", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/10.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/10.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/10.kf8.images",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/10.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/10/pg10.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/10/pg10-h.zip",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/10.txt.utf-8",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/files/10/10-0.txt"
+			},
+			"download_count":	12116
+		}, {
+			"id":	8710,
+			"title":	"The Doré Bible Gallery, Complete: Containing One Hundred Superb Illustrations, and a Page of Explanatory Letter-press Facing Each",
+			"authors":	[],
+			"summaries":	["\"The Doré Bible Gallery, Complete\" by Gustave Doré is a visual art book published during the late 19th century. This comprehensive collection features engravings that depict scenes from the Bible, all crafted by the acclaimed artist Gustave Doré, who is celebrated for his imaginative and intricate illustrations. The volume aims to provide an accessible selection of Doré's work for art lovers and biblical scholars, focusing on key events and figures from scripture.  The opening of the book details the intention behind compiling this illustrated gallery, highlighting the immense popularity of Doré’s original, more expensive editions. It emphasizes the meticulous selection of illustrations that resonate with significant biblical narratives and the critical appreciation they have garnered over time. Alongside each engraving, there is narrative text that offers brief analyses and context, enriching the viewer's understanding of both the illustrations and the scripture from which they draw inspiration. The beginning establishes Doré’s artistic genius, showcasing his capacity to bring biblical stories to life through striking visual representation. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible -- Illustrations"],
+			"bookshelves":	["Category: Art", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/8710.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/8710.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/8710.kf8.images",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/8710.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/8710/pg8710.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/8710/8710-h.zip",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/8710.txt.utf-8",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/files/8710/8710.txt"
+			},
+			"download_count":	5466
+		}, {
+			"id":	8300,
+			"title":	"The Bible, Douay-Rheims, Complete: The Challoner Revision",
+			"authors":	[],
+			"summaries":	["\"The Bible, Douay-Rheims, Complete\" is an English translation of the Bible published between 1582 and 1610. Created by English Catholic scholars in exile during the Reformation, this translation rendered the Latin Vulgate into Early Modern English as a Counter-Reformation effort. The New Testament appeared in Rheims in 1582, while the Old Testament followed in Douai nearly three decades later. Later revised by Bishop Richard Challoner in the mid-1700s, this translation influenced the King James Version and remains significant for traditional English-speaking Catholics today. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible"],
+			"bookshelves":	["Category: History - Ancient", "Category: Mythology, Legends & Folklore", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/8300.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/8300.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/8300.kf8.images",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/8300.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/8300/pg8300.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/8300/pg8300-h.zip",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/8300.txt.utf-8",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/files/8300/8300-0.txt"
+			},
+			"download_count":	4508
+		}, {
+			"id":	7999,
+			"title":	"The Bible, King James Version, Complete Contents",
+			"authors":	[{
+					"name":	"Anonymous",
+					"birth_year":	null,
+					"death_year":	null
+				}],
+			"summaries":	["\"The Bible, King James Version, Complete Contents\" by Anonymous is an English translation commissioned in 1604 and published in 1611. Undertaken at the direction of King James VI and I for the Church of England, this translation contains 80 books drawn from Hebrew, Greek, and Latin sources. Noted for its majestic style, it has shaped English literature, Christian thought, and everyday speech for over four centuries. Its distinctive phrasing and literary cadence have made it one of the most influential and widely printed books in history. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible"],
+			"bookshelves":	["Category: Religion/Spirituality", "Judaism"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/7999.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/7999.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/7999.kf8.images",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/7999.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/7999/pg7999.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/7999/7999-h.zip",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/7999.txt.utf-8",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/files/7999/7999.txt"
+			},
+			"download_count":	2496
+		}, {
+			"id":	36197,
+			"title":	"Our Calendar: The Julian calendar and its errors. How corrected by the Gregorian. Rules for finding the dominical letter, and the day of the week of any event from the days of Julius Caesar 46 B.C. to the year of our Lord four thousand; a new and easy method of fixing the date of Easter. Hebrew calendar; showing the correspondence in the date of events recorded in the Bible with our present Gregorian calendar. Illustrated by valuable tables and charts.",
+			"authors":	[{
+					"name":	"Packer, George Nichols",
+					"birth_year":	null,
+					"death_year":	null
+				}],
+			"summaries":	["\"Our Calendar\" by George Nichols Packer is a scholarly treatise on the history and mathematical principles of calendar systems, written in the late 19th century. The work delves into the transition from the Julian calendar to the Gregorian calendar, discussing the relevant historical reforms made by significant figures such as Julius Caesar and Pope Gregory XIII. Through detailed calculations and rules, Packer aims to simplify the complex processes involved in determining dates and understanding the calendar's structure, targeting those who seek a practical understanding of timekeeping.  At the start of the book, the author introduces the topic by detailing the origin and evolution of the calendar. He emphasizes his personal journey through the subject, which began as a teaching endeavor and later grew into an extensive exploration prompted by his own circumstances. The opening chapters lay out definitions, the historical context of the Roman calendar, and the adjustments made under Julius Caesar and Pope Gregory XIII to correct discrepancies in timekeeping. Packer also hints at the mathematical rules that will follow, establishing a foundation for readers interested in not just the theoretical aspects but also the practical applications of calendar calculations in everyday life. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Calendar", "Jewish calendar"],
+			"bookshelves":	["Category: History - Ancient", "Category: History - Early Modern (c. 1450-1750)", "Category: Mathematics", "Category: Teaching & Education"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/36197.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/36197.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/36197.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/36197.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/36197.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/36197/pg36197.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/36197/36197-8.zip"
+			},
+			"download_count":	2484
+		}, {
+			"id":	1581,
+			"title":	"The Bible, Douay-Rheims, Complete",
+			"authors":	[],
+			"summaries":	["\"The Bible, Douay-Rheims, Complete\" is an English translation of the Bible published between 1582 and 1610. Created by scholars at the English College in Douai as a Counter-Reformation effort, this work translates the Latin Vulgate into Early Modern English. The New Testament appeared in Rheims in 1582, while the Old Testament followed in two volumes decades later. Extensively annotated and later revised by Bishop Richard Challoner in the 1740s-1750s, it remains influential among traditional English-speaking Catholics, offering a distinctive Catholic perspective on scripture during a turbulent period of religious reform. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible"],
+			"bookshelves":	["Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/1581.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/1581.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/1581.kf8.images",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/1581.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/1581/pg1581.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/1581/1581-0.zip",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/1581.txt.utf-8",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/files/1581/1581-0.txt"
+			},
+			"download_count":	2478
+		}, {
+			"id":	50747,
+			"title":	"The Expositor's Bible: The Book of the Twelve Prophets, Vol. 2: Commonly Called the Minor",
+			"authors":	[{
+					"name":	"Smith, George Adam",
+					"birth_year":	1856,
+					"death_year":	1942
+				}],
+			"summaries":	["\"The Expositor's Bible: The Book of the Twelve Prophets, Vol. 2\" by George Adam Smith is a scholarly work on biblical exegesis written in the late 19th century. This volume continues the exploration of the Minor Prophets, specifically covering Zephaniah, Nahum, Habakkuk, Obadiah, Haggai, Zechariah, Malachi, Joel, and Jonah. It delves into their historical background, critical interpretations, and theological implications, offering a comprehensive understanding of prophetic literature during a transformative period in Israel's history.  The opening of the book details the framework of the volume, indicating that it will focus on the lesser-known prophets from the seventh century and beyond, as well as the complex social and religious conditions that shaped their messages. It outlines the organization of each chapter, including critical introductions, expositions, and contextualizations, while acknowledging the challenges of textual integrity and interpretation. Through a blend of historical context and critical analysis, the author sets the stage for a deep examination of Israel's prophetic tradition, adapting modern scholarship to ancient texts, revealing the nuanced developments in prophecy as it interacts with societal changes throughout history. (This is an automatically generated summary.)"],
+			"editors":	[{
+					"name":	"Nicoll, W. Robertson (William Robertson), Sir",
+					"birth_year":	1851,
+					"death_year":	1923
+				}],
+			"translators":	[],
+			"subjects":	["Bible. Minor Prophets -- Commentaries"],
+			"bookshelves":	["Category: History - Religious", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/50747.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/50747.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/50747.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/50747.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/50747.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/50747/pg50747.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/50747/pg50747-h.zip"
+			},
+			"download_count":	1971
+		}, {
+			"id":	31885,
+			"title":	"Bible Myths and their Parallels in other Religions: Being a Comparison of the Old and New Testament Myths and Miracles with those of the Heathen Nations of Antiquity Considering also their Origin and Meaning",
+			"authors":	[{
+					"name":	"Doane, T. W. (Thomas William)",
+					"birth_year":	1852,
+					"death_year":	1885
+				}],
+			"summaries":	["\"Bible Myths and their Parallels in Other Religions\" by T. W. Doane is a scholarly examination written in the late 19th century. The book delves into the myths and narratives found in the Old and New Testaments, comparing them with similar stories from various ancient religions. Doane's work aims to uncover the origins and meanings behind these biblical myths, suggesting that they might not be unique to Christianity.  The opening of the text presents an introduction in which the author explains the genesis of his research on biblical myths and their parallels with pagan narratives. He states that the book endeavors to trace the roots of various biblical stories, starting with the creation myth found in Genesis and moving through the accounts of key Old Testament figures and events. Doane notes the existence of discrepancies within these biblical accounts and proposes that many biblical myths share common traits with ancient religions, such as the Persian and Babylonian traditions. He sets the stage for a thorough exploration of these narratives in the forthcoming chapters, signaling an in-depth investigation into the evolution of religious stories across cultures. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible -- Criticism, interpretation, etc.", "Mythology"],
+			"bookshelves":	["Category: Archaeology & Anthropology", "Category: History - Religious", "Category: Mythology, Legends & Folklore", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/31885.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/31885.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/31885.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/31885.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/31885.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/31885/pg31885.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/31885/31885-0.zip"
+			},
+			"download_count":	1854
+		}, {
+			"id":	30,
+			"title":	"The Bible, King James Version, Complete",
+			"authors":	[],
+			"summaries":	["\"The Bible, King James Version, Complete\" is an Early Modern English translation commissioned in 1604 and published in 1611 under King James VI and I. This monumental work contains 80 books spanning the Old Testament, Apocrypha, and New Testament. Renowned for its majestic style, it has shaped English literature, Christian thought, and everyday language for over four centuries. Created to serve the Church of England and address concerns about existing translations, it became the dominant English Bible by the eighteenth century and remains among the most widely read translations today. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible"],
+			"bookshelves":	["Category: History - Ancient", "Category: Mythology, Legends & Folklore", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/30.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/30.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/30.kf8.images",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/30.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/30/pg30.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/30/pg30-h.zip",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/30.txt.utf-8",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/files/30/30-0.txt"
+			},
+			"download_count":	1617
+		}, {
+			"id":	10900,
+			"title":	"The King James Bible",
+			"authors":	[],
+			"summaries":	["\"The King James Bible\" is an English translation of the Christian Bible commissioned in 1604 and published in 1611 under King James VI and I. Containing 80 books spanning the Old Testament, Apocrypha, and New Testament, this influential translation was created for the Church of England to address concerns about existing versions. Noted for its majestic style, it has shaped English literature, Christian thought, and everyday language for over four centuries, becoming the most widely printed book in history. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible"],
+			"bookshelves":	["Category: Classics of Literature", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/10900.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/10900.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/10900.kf8.images",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/10900.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/10900/pg10900.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/10900/pg10900-h.zip",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/10900.txt.utf-8",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/files/10900/10900-0.txt"
+			},
+			"download_count":	1590
+		}, {
+			"id":	124,
+			"title":	"Deuterocanonical Books of the Bible: Apocrypha",
+			"authors":	[{
+					"name":	"Anonymous",
+					"birth_year":	null,
+					"death_year":	null
+				}],
+			"summaries":	["\"Deuterocanonical Books of the Bible\" by Anonymous is a collection of ancient texts that form part of the biblical canon for certain Christian traditions, written during the late second temple period. This compilation includes books such as the First and Second Books of Esdras, the Book of Tobit, and others that discuss themes of faith, morality, and the historical struggles of the Jewish people.  The opening of the text begins with the First Book of Esdras, recounting the significant events during the reign of King Josias of Judah, particularly focusing on the celebration of Passover. It details the preparations made by the priests and Levites for this sacred observance, highlighting the importance of following the commandments given by Moses. Josias, described as a righteous king, initiates the offering of large numbers of sacrifices, seeking to restore proper worship in Jerusalem. The text emphasizes themes of fidelity to God and the collective memory of the Israelites, setting the stage for the spiritual and political narrative that continues throughout the deuterocanonical writings. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Apocryphal books (Old Testament)", "Bible. Apocrypha"],
+			"bookshelves":	["Category: History - Ancient", "Category: Religion/Spirituality", "Christianity"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/124.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/124.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/124.kf8.images",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/124.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/124/pg124.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/124/pg124-h.zip",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/124.txt.utf-8"
+			},
+			"download_count":	1297
+		}, {
+			"id":	35642,
+			"title":	"The Bible in Spain, Vol. 1 [of 2]: Or, the Journeys, Adventures, and Imprisonments of an Englishman in an Attempt to Circulate the Scriptures in the Peninsula",
+			"authors":	[{
+					"name":	"Borrow, George",
+					"birth_year":	1803,
+					"death_year":	1881
+				}],
+			"summaries":	["\"The Bible in Spain, Vol. 1 [of 2]\" by George Borrow is a travel book published in 1843. Borrow recounts his adventures as a Bible salesman traversing Spain during the turbulent Carlist Civil War from 1835 to 1838. Facing opposition from the Catholic Church and politicians, he navigates encounters with everyone from prime ministers to beggars, Gypsies to crypto-Jews. His mission to distribute Spanish New Testaments leads to imprisonment, illness, and ultimately suppression, all while capturing vivid portraits of a wild, diverse Spain. (This is an automatically generated summary.)"],
+			"editors":	[{
+					"name":	"Burke, Ulick Ralph",
+					"birth_year":	1845,
+					"death_year":	1895
+				}, {
+					"name":	"Greene, Herbert W. (Herbert Wilson)",
+					"birth_year":	1857,
+					"death_year":	1933
+				}],
+			"translators":	[],
+			"subjects":	["Borrow, George, 1803-1881 -- Travel -- Spain", "Spain -- Description and travel", "Spain -- History -- 19th century"],
+			"bookshelves":	["Category: History - Modern (1750+)", "Category: Religion/Spirituality", "Category: Travel Writing"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/35642.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/35642.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/35642.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/35642.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/35642.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/35642/pg35642.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/35642/35642-0.zip"
+			},
+			"download_count":	1272
+		}, {
+			"id":	43847,
+			"title":	"The Expositor's Bible: The Book of the Twelve Prophets, Vol. 1: Commonly Called the Minor",
+			"authors":	[{
+					"name":	"Smith, George Adam",
+					"birth_year":	1856,
+					"death_year":	1942
+				}],
+			"summaries":	["\"The Expositor's Bible: The Book of the Twelve Prophets, Vol. 1\" by George Adam Smith is a theological exposition written in the early 20th century. This volume serves as a scholarly analysis of the Minor Prophets in the Hebrew Bible, specifically focusing on the books of Amos, Hosea, and Micah. It aims to explore the historical context, critical interpretations, and the theological significance of these prophetic texts, addressing their relevance to contemporary faith and practice.  The opening of this work provides a detailed preface outlining the purpose of the series and how it intends to bridge the historical and modern understanding of the Minor Prophets. Smith emphasizes the richness of these texts, which have often been overlooked or misinterpreted due to their size and complexity. He discusses the need for a critical examination of the texts, referencing various historical and critical frameworks that inform their interpretations. Furthermore, he introduces the significance of prophecy in early Israel and establishes the groundwork for a detailed chronological study of the Twelve Prophets, arguing against their traditional label as \"Minor\" and highlighting their profound influence on the development of prophetic literature. (This is an automatically generated summary.)"],
+			"editors":	[{
+					"name":	"Nicoll, W. Robertson (William Robertson), Sir",
+					"birth_year":	1851,
+					"death_year":	1923
+				}],
+			"translators":	[],
+			"subjects":	["Bible. Minor Prophets -- Commentaries"],
+			"bookshelves":	["Category: History - Religious", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/43847.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/43847.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/43847.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/43847.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/43847.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/43847/pg43847.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/43847/pg43847-h.zip"
+			},
+			"download_count":	1200
+		}, {
+			"id":	44685,
+			"title":	"Story of the Bible Animals: A Description of the Habits and Uses of every living Creature mentioned in the Scriptures, with Explanation of Passages in the Old and New Testament in which Reference is made to them",
+			"authors":	[{
+					"name":	"Wood, J. G. (John George)",
+					"birth_year":	1827,
+					"death_year":	1889
+				}],
+			"summaries":	["\"Story of the Bible Animals\" by J. G. Wood is a descriptive work that seems to have been written in the late 19th century. The volume explores the various creatures mentioned in the Bible, delving into their characteristics, habitats, and the roles they play within the scripture narratives. The book aims to illuminate scripture passages through a better understanding of the animals referenced, making it educational yet accessible to readers of all ages.  At the start of the narrative, the author emphasizes the importance of understanding the natural history of animals to interpret biblical texts accurately. He outlines the structure of the book, highlighting that it will cover creatures from both the Old and New Testaments, alongside explanations of relevant scripture passages. The opening portion also introduces the lion, illustrating its presence in the scriptures and noting its historical significance in the region, while discussing its disappearance due to human activities. Wood's style is engaging, aiming to captivate a general audience through vivid descriptions and informative anecdotes about each animal's behavior and symbolism within biblical context. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Animals in the Bible", "Nature in the Bible"],
+			"bookshelves":	["Category: Nature/Gardening/Animals", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/44685.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/44685.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/44685.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/44685.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/44685.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/44685/pg44685.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/44685/pg44685-h.zip"
+			},
+			"download_count":	1011
+		}, {
+			"id":	8294,
+			"title":	"The World English Bible (WEB), Complete",
+			"authors":	[{
+					"name":	"Anonymous",
+					"birth_year":	null,
+					"death_year":	null
+				}],
+			"summaries":	["\"The World English Bible (WEB), Complete\" by Anonymous is an English Bible translation that began in 1994 and was completed in 2020. Created by Michael Paul Johnson and volunteers, it updates the 1901 American Standard Version with modern language while maintaining formal equivalence. Released entirely into the public domain, the WEB offers multiple versions including American and British English styles, with Old Testament options that include or exclude deuterocanonical books. This freely accessible translation aims to serve English speakers worldwide. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible"],
+			"bookshelves":	["Category: History - Ancient", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/8294.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/8294.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/8294.kf8.images",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/8294.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/8294/pg8294.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/8294/8294-h.zip",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/8294.txt.utf-8",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/files/8294/8294.txt"
+			},
+			"download_count":	994
+		}, {
+			"id":	40235,
+			"title":	"The Expositor's Bible: The Books of Chronicles",
+			"authors":	[{
+					"name":	"Bennett, W. H. (William Henry)",
+					"birth_year":	1855,
+					"death_year":	1920
+				}],
+			"summaries":	["\"The Expositor's Bible: The Books of Chronicles\" by W. H. Bennett is a scholarly exposition written in the early 20th century. The work examines the biblical texts of the Books of Chronicles, focusing on their historical context, authorship, and the spiritual significance of their content. The author, a professor of Old Testament Languages and Literature, aims to analyze the stories, genealogies, and rituals within Chronicles.  The opening of the book introduces the author’s methodological approach, emphasizing the need to understand Chronicles in relation to its contemporaneous texts, specifically Ezra and Nehemiah. Bennett highlights the intricate connections between Chronicles and older historical sources while noting the chronicler's interest in genealogy and the ecclesiastical structure of the Jewish community. He discusses the distinctions between the existing genealogies, their implications for social identity in the post-exilic Jewish community, and the chronicler's unique perspective on history as a vehicle for spiritual teaching, setting the stage for a deeper exploration of the themes and narratives within the Chronicles. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible. Chronicles -- Commentaries"],
+			"bookshelves":	["Category: History - Religious", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/40235.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/40235.epub3.images",
+				"application/pdf":	"https://www.gutenberg.org/files/40235/40235-pdf.pdf",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/40235.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/40235.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/40235.rdf",
+				"application/prs.tei":	"https://www.gutenberg.org/files/40235/40235-tei/40235-tei.tei",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/40235/pg40235.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/40235/40235-0.zip"
+			},
+			"download_count":	985
+		}, {
+			"id":	30132,
+			"title":	"The Canon of the Bible",
+			"authors":	[{
+					"name":	"Davidson, Samuel",
+					"birth_year":	1806,
+					"death_year":	1898
+				}],
+			"summaries":	["\"The Canon of the Bible\" by Samuel Davidson is a scholarly examination of the formation, history, and fluctuations of the Biblical canon, written in the late 19th century. The work seeks to provide a comprehensive and unbiased analysis of how the canon of both the Old and New Testaments developed over time, particularly in response to various critical perspectives. Davidson emphasizes the importance of understanding the diverse contexts and interpretations that have shaped the scriptures.  The opening of the work presents a detailed preface where Davidson outlines his purpose and methodology for discussing the biblical canon. He criticizes the apologetic and conservative approaches of some prior writings on the subject, insisting on a more scientific and impartial examination. Davidson explains key terms related to the canon, showing that their meanings have evolved and varied among different writers. He establishes a framework for discussing the Old Testament and New Testament canons, indicating a historical narrative that emphasizes changes in perception and acceptance of biblical texts throughout Jewish and early Christian history. The text sets up the foundation for a thorough investigation into how the canon was shaped and recognized over centuries. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible -- Canon"],
+			"bookshelves":	["Category: History - Religious", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/30132.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/30132.epub3.images",
+				"application/pdf":	"https://www.gutenberg.org/files/30132/30132-pdf.pdf",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/30132.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/30132.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/30132.rdf",
+				"application/prs.tei":	"https://www.gutenberg.org/files/30132/30132-tei/30132-tei.tei",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/30132/pg30132.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/30132/30132-0.zip"
+			},
+			"download_count":	932
+		}, {
+			"id":	43070,
+			"title":	"Archæology and the Bible",
+			"authors":	[{
+					"name":	"Barton, George A. (George Aaron)",
+					"birth_year":	1859,
+					"death_year":	1942
+				}],
+			"summaries":	["\"Archæology and the Bible\" by George A. Barton is a scholarly work that intertwines archaeology with biblical studies, written in the early 20th century. The book systematically explores how archaeological findings illuminate and enrich our understanding of the Bible, particularly in the context of the biblical lands including Egypt and Palestine. Barton aims to provide valuable insights into the historical backdrop of scripture, offering translations of ancient texts that confirm or enhance biblical narratives.  The opening of the book introduces the significance of archaeological exploration over the previous century, which has dramatically changed perceptions of biblical history. The author explains that discoveries in regions like Egypt and Palestine have uncovered artifacts and texts that bring clarity and vividness to biblical accounts, especially those related to key figures and events. Barton outlines his intention to collate this vast array of findings into a single volume that serves as a comprehensive reference for pastors and educators, while simultaneously inviting wider readership to appreciate the depth and context that archaeology adds to the biblical text. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible -- Antiquities", "Egypt -- Antiquities", "Middle East -- Antiquities"],
+			"bookshelves":	["Category: Archaeology & Anthropology", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/43070.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/43070.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/43070.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/43070.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/43070.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/43070/pg43070.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/43070/pg43070-h.zip"
+			},
+			"download_count":	928
+		}, {
+			"id":	35676,
+			"title":	"The Bible in Spain, Vol. 2 [of 2]: Or, the Journeys, Adventures, and Imprisonments of an Englishman in an Attempt to Circulate the Scriptures in the Peninsula",
+			"authors":	[{
+					"name":	"Borrow, George",
+					"birth_year":	1803,
+					"death_year":	1881
+				}],
+			"summaries":	["\"The Bible in Spain, Vol. 2 [of 2]\" by George Borrow is a travel book published in 1843. Borrow recounts his adventures as a Bible salesman traveling through Spain during the Carlist Civil War from 1835 to 1838. Facing opposition from the Catholic Church and authorities, he negotiates with prime ministers, distributes Spanish translations of the New Testament, opens an illegal bookshop, and encounters a vivid array of Spaniards—from beggars to Gypsies to crypto-Jews. His mission leads to imprisonment, illness, and eventual expulsion from Spain. (This is an automatically generated summary.)"],
+			"editors":	[{
+					"name":	"Burke, Ulick Ralph",
+					"birth_year":	1845,
+					"death_year":	1895
+				}, {
+					"name":	"Greene, Herbert W. (Herbert Wilson)",
+					"birth_year":	1857,
+					"death_year":	1933
+				}],
+			"translators":	[],
+			"subjects":	["Borrow, George, 1803-1881 -- Travel -- Spain", "Spain -- Description and travel", "Spain -- History -- 19th century"],
+			"bookshelves":	["Category: History - European", "Category: Religion/Spirituality", "Category: Travel Writing"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/35676.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/35676.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/35676.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/35676.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/35676.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/35676/pg35676.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/35676/35676-0.zip"
+			},
+			"download_count":	922
+		}, {
+			"id":	23580,
+			"title":	"The Children's Bible",
+			"authors":	[{
+					"name":	"Kent, Charles Foster",
+					"birth_year":	1867,
+					"death_year":	1925
+				}, {
+					"name":	"Sherman, Henry A.",
+					"birth_year":	1870,
+					"death_year":	null
+				}],
+			"summaries":	["\"The Children's Bible\" by Henry A. Sherman and Charles Foster Kent is a religious text that offers selections from both the Old and New Testaments, rendered in a simplified English format. Likely written in the early 20th century, this work aims to present biblical stories in a way that is accessible to younger readers and those seeking a straightforward understanding of these texts. The book covers key narratives and teachings from the Bible, making it suitable for educational and familial contexts.  The opening of the book sets the tone with foundational biblical stories that include the creation of the world, God's gifts to humanity, and pivotal events involving significant figures such as Adam, Eve, Cain, Abel, Noah, and Abraham. Each narrative is told with clarity, emphasizing moral and religious lessons relevant to children. For instance, the consequences of disobedience are illustrated through the story of Adam and Eve, while the importance of faith and covenant is depicted in Abraham's encounters. This foundational approach serves to introduce young readers to the rich heritage of biblical stories, encouraging them to explore these themes further. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible stories, English"],
+			"bookshelves":	["Category: Children & Young Adult Reading", "Category: Religion/Spirituality", "Children's Religion"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/23580.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/23580.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/23580.kf8.images",
+				"application/octet-stream":	"https://www.gutenberg.org/files/23580/23580-page-images/c001.jpg",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/23580.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/23580/pg23580.cover.medium.jpg",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/23580.txt.utf-8",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/files/23580/23580-0.txt"
+			},
+			"download_count":	891
+		}, {
+			"id":	9880,
+			"title":	"The Woman's Bible",
+			"authors":	[{
+					"name":	"Stanton, Elizabeth Cady",
+					"birth_year":	1815,
+					"death_year":	1902
+				}],
+			"summaries":	["\"The Woman's Bible\" by Elizabeth Cady Stanton is a two-part non-fiction book published in 1895 and 1898. Written with a committee of 26 women, it challenges traditional religious interpretations that position women as subservient to men. Stanton sought to promote a liberating theology emphasizing self-development by reinterpreting biblical passages about women. The work sparked intense controversy, becoming a bestseller while alienating many suffragists who feared it would harm their cause. Even close allies formally denounced it, effectively ending Stanton's influence in the suffrage movement. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible -- Commentaries", "Bible -- Feminist criticism", "Women in the Bible"],
+			"bookshelves":	["Category: Gender & Sexuality Studies", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/9880.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/9880.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/9880.kf8.images",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/9880.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/9880/pg9880.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/9880/9880.zip",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/9880.txt.utf-8",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/files/9880/9880.txt"
+			},
+			"download_count":	874
+		}, {
+			"id":	58062,
+			"title":	"The Preacher's Complete Homiletic Commentary on the Books of the Bible, Volume 15 (of 32): The Preacher's Complete Homiletic Commentary on the Book of the Prophet Isaiah, Volume I",
+			"authors":	[{
+					"name":	"Bertram, Robert Aitkin",
+					"birth_year":	1836,
+					"death_year":	1886
+				}, {
+					"name":	"Tucker, Alfred",
+					"birth_year":	1849,
+					"death_year":	1914
+				}],
+			"summaries":	["\"The Preacher's Complete Homiletic Commentary on the Books of the Bible, Volume 15\" by various authors is a religious commentary written in the late 19th century. This volume specifically focuses on the prophetic Book of Isaiah, aiming to aid ministers in sermon preparation by offering critical and explanatory notes along with outlines based on various interpretations. The text reflects diverse opinions that were prevalent in its time, addressing theological themes and society's moral standing.  The opening of this commentary begins with transcriber’s notes explaining the formatting and context of the book. It sets the stage for a serious theological discourse, highlighting that the content will delve into the first 39 chapters of Isaiah. The authors express their intent to focus on the practical implications of Isaiah's messages for contemporary life, rather than on speculative theological debates. They emphasize critical themes such as divine authority, the nature of humanity's sin, and the call for spiritual consideration and renewal within the context of the faithful's relationship with God. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible -- Commentaries", "Bible. Isaiah -- Commentaries", "Preaching"],
+			"bookshelves":	["Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/58062.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/58062.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/58062.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/58062.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/58062.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/58062/pg58062.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/58062/58062-0.zip"
+			},
+			"download_count":	824
+		}, {
+			"id":	34520,
+			"title":	"Bible Readings for the Home Circle",
+			"authors":	[],
+			"summaries":	["\"Bible Readings for the Home Circle\" is a religious study guide written in the early 20th century. This collection focuses on the systematic study of the Bible, featuring two hundred readings that address nearly four thousand questions on important religious subjects. The work is designed to facilitate both private and family discussions about biblical themes and teachings, emphasizing understanding and application of the Scriptures in daily life.  At the start of the book, the authors introduce the concept of Bible readings as a method for exploring the Scriptures through questions and answers, encouraging active engagement with the text. They emphasize the importance of Bible study for spiritual growth, knowledge, and moral guidance, making a case for its relevance to every individual. The opening section also touches on the divine origin of the Bible and its significance throughout history, setting the stage for deeper exploration of topics such as sin, redemption, and the attributes of God in later chapters. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible -- Illustrations", "Bible -- Indexes", "Bible -- Study and teaching"],
+			"bookshelves":	["Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/34520.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/34520.epub3.images",
+				"application/pdf":	"https://www.gutenberg.org/files/34520/34520-pdf.pdf",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/34520.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/34520.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/34520.rdf",
+				"application/prs.tei":	"https://www.gutenberg.org/files/34520/34520-tei/34520-tei.tei",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/34520/pg34520.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/34520/34520-0.zip"
+			},
+			"download_count":	811
+		}, {
+			"id":	28536,
+			"title":	"The Astronomy of the Bible: An Elementary Commentary on the Astronomical References of Holy Scripture",
+			"authors":	[{
+					"name":	"Maunder, E. Walter (Edward Walter)",
+					"birth_year":	1851,
+					"death_year":	1928
+				}],
+			"summaries":	["\"The Astronomy of the Bible\" by E. Walter Maunder is a scientific commentary on the astronomical references found in Holy Scripture, written in the early 20th century. The work aims to bridge the gap between ancient spiritual insights and modern astronomical understanding by interpreting biblical texts through an astronomical lens. This exploration reveals how the authors of the Bible viewed and understood the heavenly bodies, connecting their observations to historical and cultural contexts.  The opening of the book sets the stage for an examination of how astronomical principles can enhance our understanding of biblical texts. Maunder articulates the gap between the scientifically informed perspectives of modern astronomers and the ancient views represented in Scripture, emphasizing that the biblical narrative is not primarily scientific, but rich in spiritual meaning. He introduces the idea that astronomical knowledge was present even in ancient times and that biblical references to the cosmos serve to illustrate the attributes of God rather than to provide a scientific treatise on the heavens. Maunder's approach invites readers to reconsider the significance of the stars and celestial phenomena within the context of faith and spirituality, establishing a foundational framework for further exploration throughout the rest of the text. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Astronomy in the Bible", "Constellations"],
+			"bookshelves":	["Astronomy", "Category: Religion/Spirituality", "Category: Science - Physics"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/28536.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/28536.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/28536.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/28536.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/28536.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/28536/pg28536.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/28536/28536-0.zip"
+			},
+			"download_count":	746
+		}, {
+			"id":	8001,
+			"title":	"The Bible, King James version, Book 1: Genesis",
+			"authors":	[{
+					"name":	"Anonymous",
+					"birth_year":	null,
+					"death_year":	null
+				}],
+			"summaries":	["\"The Bible, King James version, Book 1: Genesis by Anonymous\" is the first book of the Hebrew Bible and Christian Old Testament, composed after the Babylonian captivity, possibly in the fifth century BCE. It opens with the legendary creation of the world and humanity's early history, then follows God's chosen people through successive covenants—from Noah's preservation during destruction to Abraham's journey to Canaan, and the descendants of Israel who ultimately arrive in Egypt, awaiting their future exodus. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible. Genesis"],
+			"bookshelves":	["Category: History - Religious", "Category: Religion/Spirituality", "Judaism"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/8001.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/8001.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/8001.kf8.images",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/8001.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/8001/pg8001.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/8001/8001.zip",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/8001.txt.utf-8",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/files/8001/8001.txt"
+			},
+			"download_count":	737
+		}, {
+			"id":	24428,
+			"title":	"Our Fathers Have Told Us: Part I. The Bible of Amiens",
+			"authors":	[{
+					"name":	"Ruskin, John",
+					"birth_year":	1819,
+					"death_year":	1900
+				}],
+			"summaries":	["\"Our Fathers Have Told Us\" by John Ruskin is a collection of historical sketches written in the late 19th century. The work aims to provide young readers with engaging narratives about the history of Christendom, particularly focusing on significant events and figures that shaped the religious and cultural landscape. The text promises to intertwine educational content with moral insights, aiming to inspire a deeper understanding of the past among its readers.  The opening portion introduces the book's intent through a preface, where the author reflects on the challenges of teaching history to children, emphasizing its potential to be both enlightening and engaging. Ruskin begins to explore the historical significance of Amiens, a city rich in cultural heritage and history. He discusses the transition from pagan beliefs to Christianity, marking the arrival of the martyr St. Firmin, and recounts the foundational moments of the Frankish kingdom under Clovis, aiming to convey the moral lessons inherent in these historical narratives. The text sets a tone of reverence for history while encouraging thoughtful reflection on its relevance to contemporary life. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Cathédrale d'Amiens", "France -- History"],
+			"bookshelves":	["Category: Children & Young Adult Reading", "Category: History - European", "Category: History - Religious"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/24428.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/24428.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/24428.kf8.images",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/24428.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/24428/pg24428.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/24428/24428-8.zip",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/24428.txt.utf-8",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/files/24428/24428-8.txt"
+			},
+			"download_count":	727
+		}, {
+			"id":	37120,
+			"title":	"The Expositor's Bible: The Gospel According to St. Mark",
+			"authors":	[{
+					"name":	"Chadwick, G. A. (George Alexander)",
+					"birth_year":	1840,
+					"death_year":	1923
+				}],
+			"summaries":	["\"The Expositor's Bible: The Gospel According to St. Mark\" by G. A. Chadwick is a religious commentary written in the late 19th century. This work focuses on the theological and historical interpretations of the Gospel of Mark, exploring the life, teachings, and miracles of Jesus Christ. The author aims to convey the significance of the gospel message, emphasizing Christ's divinity and His call to repentance and faith.  The opening of the text introduces the reader to the Gospel of St. Mark, highlighting its energetic portrayal of Jesus’ ministry and the unique aspects of His character. Chadwick notes that unlike other Gospels that delve into genealogy or childhood, Mark emphasizes Jesus’ public deeds. The narrative begins by detailing John the Baptist’s ministry, proclaiming the coming of Jesus, who is portrayed as the Son of God. The author demonstrates how John prepared the way for Jesus, who, after being baptized, began His public ministry with authority, healing, and teaching. This opening establishes the theological foundation of the text, focusing on the relationship between repentance, faith, and the transformative power of Christ's message. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible. Mark -- Commentaries"],
+			"bookshelves":	["Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/37120.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/37120.epub3.images",
+				"application/pdf":	"https://www.gutenberg.org/files/37120/37120-pdf.pdf",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/37120.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/37120.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/37120.rdf",
+				"application/prs.tei":	"https://www.gutenberg.org/files/37120/37120-tei/37120-tei.tei",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/37120/pg37120.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/37120/37120-0.zip"
+			},
+			"download_count":	725
+		}, {
+			"id":	42964,
+			"title":	"Bible animals : $b being a description of every living creature mentioned in the Scripture, from the ape to the coral.",
+			"authors":	[{
+					"name":	"Wood, J. G. (John George)",
+					"birth_year":	1827,
+					"death_year":	1889
+				}],
+			"summaries":	["\"Bible Animals: Being a Description of Every Living Creature Mentioned in the Scriptures\" by Rev. J. G. Wood is a zoological reference work written in the late 19th century. The book aims to illuminate the natural history of various animals referenced in the Bible, providing descriptions and contexts that help the reader understand their symbolic and literal significance in Scripture. It combines zoological facts with biblical citations, making it valuable for both natural historians and biblical scholars.  The opening portion of the work starts with a preface discussing the importance of understanding the natural history of animals mentioned in the Bible to fully grasp the text's metaphors and symbols. Wood emphasizes that many animals can enhance the clarity of scriptural interpretations and lays out his methodology for approaching each creature chronologically as it appears in the scriptures. He begins detailing animals with references to monkeys, exploring their historical context and mentions in biblical texts, and relating them to the life and customs of the people during the time the scriptures were written. Overall, this introduction sets the stage for a detailed exploration of animals within the biblical narrative and provides insights into how they enrich our understanding of the texts. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Animals in the Bible", "Nature in the Bible"],
+			"bookshelves":	["Category: Archaeology & Anthropology", "Category: Nature/Gardening/Animals", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/42964.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/42964.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/42964.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/42964.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/42964.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/42964/pg42964.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/42964/pg42964-h.zip"
+			},
+			"download_count":	709
+		}, {
+			"id":	415,
+			"title":	"The Bible in Spain: Or, the Journeys, Adventures, and Imprisonments of an Englishman, in an Attempt to Circulate the Scriptures in the Peninsula",
+			"authors":	[{
+					"name":	"Borrow, George",
+					"birth_year":	1803,
+					"death_year":	1881
+				}],
+			"summaries":	["\"The Bible in Spain\" by George Borrow is a travel book published in 1843. It chronicles Borrow's adventurous journey through Spain as a Bible salesman during the turbulent Carlist Civil War of 1835-1838. Facing fierce opposition from the Catholic Church and authorities, he navigates dangerous terrain, encounters everyone from prime ministers to gypsies, opens an illegal bookshop, and lands briefly in prison. This vivid account blends evangelical mission with romantic adventure, offering intimate portraits of a diverse cast of Spaniards during a dramatic period in Spanish history. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Borrow, George, 1803-1881 -- Travel -- Spain", "Spain -- Description and travel", "Spain -- History -- 19th century"],
+			"bookshelves":	["Category: History - Modern (1750+)", "Category: Religion/Spirituality", "Category: Travel Writing"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/415.html.images",
+				"text/html; charset=utf-8":	"https://www.gutenberg.org/files/415/415-h/415-h.htm",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/415.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/415.kf8.images",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/415.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/415/pg415.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/415/pg415-h.zip",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/415.txt.utf-8"
+			},
+			"download_count":	672
+		}, {
+			"id":	77715,
+			"title":	"The story of Mary Jones and her Bible",
+			"authors":	[{
+					"name":	"Ropes, Mary E. (Mary Emily)",
+					"birth_year":	1842,
+					"death_year":	1932
+				}],
+			"summaries":	[],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible -- Juvenile fiction", "Children -- Conduct of life -- Juvenile fiction", "Christian life -- Juvenile fiction", "Conduct of life -- Juvenile fiction", "Faith -- Juvenile fiction", "Glory of God -- Juvenile fiction", "Jones, Mary, 1784-1864 -- Juvenile fiction", "Literacy -- Juvenile fiction", "Prayer -- Juvenile fiction"],
+			"bookshelves":	[],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/77715.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/77715.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/77715.kf8.images",
+				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/77715.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/77715.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/77715/pg77715.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/77715/pg77715-h.zip"
+			},
+			"download_count":	671
+		}, {
+			"id":	43550,
+			"title":	"The Bible of Bibles; Or, Twenty-Seven \"Divine\" Revelations",
+			"authors":	[{
+					"name":	"Graves, Kersey",
+					"birth_year":	1813,
+					"death_year":	1883
+				}, {
+					"name":	"Graves, Lydia M.",
+					"birth_year":	null,
+					"death_year":	null
+				}],
+			"summaries":	["\"The Bible of Bibles; Or, Twenty-Seven 'Divine' Revelations\" by Kersey Graves is a critical examination of various sacred texts, written in the late 19th century. This work delves into 27 different religious scriptures and scrutinizes them alongside the Christian Bible, aiming to highlight thousands of perceived errors in moral, historical, and scientific assertions within the Bible. The book boldly contends that the religious beliefs of the past—which it claims are deeply flawed—must adapt to fit the moral and intellectual advancements of contemporary society.  At the start of this volume, the author outlines the pressing religious upheaval of the time and promotes the idea that humanity is on the verge of a significant reformation in thought and morality. Graves discusses how old institutions are faltering under the weight of enlightenment and urges readers to reconsider the absolute truths that religious texts, including the Bible, purport. He intends for his analysis to contribute to the burgeoning era of reason and science, revealing how rigid dogmas inhibit moral progression. This opening section sets the stage for a comprehensive critique that promises to challenge conventional religious beliefs and provoke thoughtful discussion. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Free thought"],
+			"bookshelves":	["Category: History - Religious", "Category: Philosophy & Ethics", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/43550.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/43550.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/43550.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/43550.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/43550.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/43550/pg43550.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/43550/pg43550-h.zip"
+			},
+			"download_count":	661
+		}, {
+			"id":	42258,
+			"title":	"The Expositor's Bible: The Acts of the Apostles, Vol. 1",
+			"authors":	[{
+					"name":	"Stokes, George Thomas",
+					"birth_year":	1843,
+					"death_year":	1898
+				}],
+			"summaries":	["\"The Expositor's Bible: The Acts of the Apostles, Vol. 1\" by George Thomas Stokes is an exposition of the New Testament written in the late 19th century. The work focuses on the Acts of the Apostles, a historical account detailing the early Christian Church, particularly the narratives leading up to the conversion of St. Paul and the baptism of Cornelius. The author seeks to illustrate the significance of early Christian events by referencing various ancient documents and the testimonies of early Church figures.  At the start of the volume, the author outlines the purpose and scope of the exposition, indicating that it intends to analyze the Acts of the Apostles, emphasizing its importance in understanding the formative years of Christianity. Stokes references notable early historical figures and documents as foundational to his study, establishing a context for exploring the origins and authority of the text. He also contemplates the role of certain figures, such as Tertullian, in confirming the existence and authorship of the Acts, thereby laying the groundwork for a deeper examination of the text's teachings and their implications for the early Church. (This is an automatically generated summary.)"],
+			"editors":	[{
+					"name":	"Nicoll, W. Robertson (William Robertson), Sir",
+					"birth_year":	1851,
+					"death_year":	1923
+				}],
+			"translators":	[],
+			"subjects":	["Bible. Acts -- Commentaries", "Bible. Acts -- Criticism, interpretation, etc."],
+			"bookshelves":	["Category: History - Religious", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/42258.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/42258.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/42258.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/42258.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/42258.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/42258/pg42258.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/42258/pg42258-h.zip"
+			},
+			"download_count":	655
+		}]
+}
