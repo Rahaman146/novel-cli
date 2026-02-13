@@ -44,6 +44,61 @@ int display_menu(char *options[], int n_options) {
       case 10:  // Enter key
         choice = highlight;
         break;
+      
+      case KEY_LEFT:
+        return -1;
+      case 'q':
+        return -1;
+    }
+
+    if (choice != -1)
+      break;
+  }
+
+  return choice;
+}
+
+int display_webnovel_list(char title[10][256], int count, char yearly_views[10][256], char chapters[10][256], char ratings[10][256], char slugs[10][256]) {
+  int highlight = 0;
+  int choice = -1;
+  int c;
+
+  while (1) {
+    clear();
+
+    for (int i = 0; i < count; i++) {
+      if (i == highlight) {
+        attron(A_REVERSE);
+        printw("%s, (Views: %s), (Chapters: %s), (Rating: %s) \n", title[i], yearly_views[i], chapters[i], ratings[i]);
+        attroff(A_REVERSE);
+      } else {
+        printw("%s, (Views: %s), (Chapters: %s), (Rating: %s) \n", title[i], yearly_views[i], chapters[i], ratings[i]);
+      }
+    }
+
+    c = getch();
+
+    switch (c) {
+      case KEY_UP:
+        highlight--;
+        if (highlight < 0)
+          highlight = count - 1;
+        break;
+
+      case KEY_DOWN:
+        highlight++;
+        if (highlight >= count)
+          highlight = 0;
+        break;
+
+      case 10:  // Enter key
+        choice = highlight;
+        break;
+      
+      case KEY_LEFT:
+        return -1;
+      case 'q':
+        return -1;
     }
 
     if (choice != -1)

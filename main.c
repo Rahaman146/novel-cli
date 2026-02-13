@@ -1,3 +1,6 @@
+#define _XOPEN_SOURCE_EXTENDED 1
+#include <locale.h>
+
 #include "ui.h"
 #include "cache.h"
 #include "controller.h"
@@ -23,7 +26,7 @@ int main() {
   noecho();
   keypad(stdscr, TRUE);
 
-char *main_options[] = {"Search Book (Gutenberg)", "Open Library", "Search WebNovel", "Exit"};
+  char *main_options[] = {"Search Book (Gutenberg)", "Open Library", "Search WebNovel", "Exit"};
   int size_main_options = sizeof(main_options) / sizeof(char*);
 
   while (1) {

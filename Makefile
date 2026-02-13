@@ -5,10 +5,10 @@ CC = gcc
 CFLAGS = -Wall -Wextra -std=c11 -g
 
 # Libraries
-LIBS = -lncurses -lcurl -lcjson
+LIBS = -lncurses -lcurl -lcjson -lmyhtml
 
 # Source files
-SRC = main.c ui.c controller.c network.c cache.c library.c webnovel.c
+SRC = main.c ui.c chapter_controller.c controller.c network.c cache.c library.c webnovel.c
 
 # Object files
 OBJ = $(SRC:.c=.o)

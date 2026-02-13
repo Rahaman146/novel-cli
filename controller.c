@@ -75,6 +75,9 @@ FILE* select_main_menu(int choice, char* main_options[], int size_main_options) 
     }
 
     int book_choice = display_menu(book_options, display_count);
+    if (book_choice == -1){
+      return NULL;
+    }
     FILE* cached_book = in_Library(book_options[book_choice]);
 
     if(cached_book == NULL) {

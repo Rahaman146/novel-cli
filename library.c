@@ -46,6 +46,9 @@ void open_library(char *options[], int n_options) {
   int res = display_book(fp);
   if(res == -1){ 
     int choice = display_menu(options, n_options);
+    if (choice == -1){
+      return;
+    }
     select_main_menu(choice, options, n_options);
   }
 
