@@ -23,10 +23,9 @@ FILE* select_main_menu(int choice, char* main_options[], int size_main_options) 
     echo();
     clear();
     mvprintw(0, 0, "Enter book name: ");
-    refresh();
     getnstr(book_name, sizeof(book_name) - 1);
+    refresh();
     noecho();
-
     book_name[strcspn(book_name, "\n")] = 0;
 
     json = load_from_cache(book_name);
@@ -62,10 +61,17 @@ FILE* select_main_menu(int choice, char* main_options[], int size_main_options) 
     int count_val = count->valueint;
     int display_count = count_val > 20 ? 20 : count_val;
     cJSON* results = cJSON_GetObjectItemCaseSensitive(json, "results");
-    if (!cJSON_IsArray(results)) {
-      printf("Search not found\n");
-    }
 
+    if (count_val == 0) {
+      clear();
+      mvprintw(0, 0, "Search result not found.");
+      mvprintw(1, 0, "Press any key to continue...");
+      refresh();
+      getch();
+      cJSON_Delete(json);
+      curl_easy_cleanup(handle);
+      return NULL;
+    }
     cJSON* result_item = results->child;
     char *book_options[display_count];
     for (int i = 0; i < display_count; i++) {

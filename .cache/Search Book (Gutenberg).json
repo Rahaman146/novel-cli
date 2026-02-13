@@ -1,6 +1,6 @@
 {
-	"count":	383,
-	"next":	"https://gutendex.com/books/?page=2&search=The+bible",
+	"count":	406,
+	"next":	"https://gutendex.com/books/?page=2&search=bible",
 	"previous":	null,
 	"results":	[{
 			"id":	10,
@@ -71,6 +71,32 @@
 				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/files/8300/8300-0.txt"
 			},
 			"download_count":	4508
+		}, {
+			"id":	34702,
+			"title":	"Encyclopaedia Britannica, 11th Edition, \"Bible\" to \"Bisectrix\": Volume 3, Slice 7",
+			"authors":	[{
+					"name":	"Various",
+					"birth_year":	null,
+					"death_year":	null
+				}],
+			"summaries":	["\"Encyclopaedia Britannica, 11th Edition, 'Bible' to 'Bisectrix'\" by Various is a comprehensive reference work written in the early 20th century. This volume is an informative resource that covers a wide array of topics, providing detailed entries on subjects ranging from the Bible and its significance to various scientific and literary terms. The book presents a systematic approach to disseminating knowledge in an encyclopedic format, aiming to educate readers on diverse fields of arts, sciences, and general information.  The opening of this volume introduces the section on the \"Bible,\" explaining its origins and the complexities involved in its composition. It describes the term \"Bible\" as derived from the Greek word for \"books\" and discusses the structure of the Old and New Testaments, focusing on the historical and literary conditions under which these sacred texts were formed. The text elaborates on the development of the Biblical canon, detailing how various writings were compiled and recognized over time, thus providing insight into the evolution of religious literature. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Encyclopedias and dictionaries"],
+			"bookshelves":	["Category: Encyclopedias/Dictionaries/Reference"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/34702.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/34702.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/34702.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/34702.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/34702.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/34702/pg34702.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/files/34702/34702-8.zip"
+			},
+			"download_count":	3919
 		}, {
 			"id":	7999,
 			"title":	"The Bible, King James Version, Complete Contents",
@@ -250,6 +276,32 @@
 			},
 			"download_count":	1590
 		}, {
+			"id":	41140,
+			"title":	"Bible Atlas: A Manual of Biblical Geography and History",
+			"authors":	[{
+					"name":	"Hurlbut, Jesse Lyman",
+					"birth_year":	1843,
+					"death_year":	1930
+				}],
+			"summaries":	["\"Bible Atlas: A Manual of Biblical Geography and History\" by Jesse Lyman Hurlbut is a detailed reference work that blends biblical geography and history, likely written in the late 19th century. This manual is designed specifically for teachers and students of the Bible and includes maps, charts, and illustrated views of significant biblical locations. The book aims to provide readers with a thorough understanding of the historical context and geography surrounding biblical events, enhancing the study of these ancient texts.  At the start of the manual, the introduction sets the stage by discussing the Bible as an ancient, multifaceted work that intertwines history, poetry, and doctrine. It highlights the importance of understanding the geographical and historical framework of the Bible to grasp its narratives accurately. The author, along with a supporting introduction by Bishop John H. Vincent, emphasizes how vital it is for readers and students to connect the biblical narratives with their real-world counterparts in ancient lands, underscoring that without such contextual knowledge, the richness and reality of the scriptures may be lost. This foundation prepares the reader to engage deeply with the content of the atlas as it unfolds. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Bible -- Geography", "Bible -- Geography -- Maps", "Bible -- History of Biblical events"],
+			"bookshelves":	["Category: Encyclopedias/Dictionaries/Reference", "Category: History - Religious", "Category: Religion/Spirituality"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/41140.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/41140.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/41140.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/41140.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/41140.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/41140/pg41140.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/41140/pg41140-h.zip"
+			},
+			"download_count":	1323
+		}, {
 			"id":	124,
 			"title":	"Deuterocanonical Books of the Bible: Apocrypha",
 			"authors":	[{
@@ -309,6 +361,32 @@
 				"application/octet-stream":	"https://www.gutenberg.org/files/35642/35642-0.zip"
 			},
 			"download_count":	1272
+		}, {
+			"id":	50879,
+			"title":	"A Baptist Abroad: Travels and Adventures of Europe and all Bible Lands",
+			"authors":	[{
+					"name":	"Whittle, Walter Andrew",
+					"birth_year":	null,
+					"death_year":	null
+				}],
+			"summaries":	["\"A Baptist Abroad: Travels and Adventures of Europe and all Bible Lands\" by Rev. Walter Andrew Whittle is a travel narrative written in the late 19th century. The book chronicles the author's journey through various regions, focusing on Europe and the biblical lands of the Middle East, while intertwining his observations on culture, society, and religion. This detailed account not only serves as a travelogue but also aims to provide insight into the author's experiences and discoveries as he traverses these historically and spiritually significant areas.  The opening of the book sets the stage for the adventures that will unfold. It begins with the author preparing for his journey, sharing poignant moments with his mother and reflecting on the thrill and challenges of setting out for New York and beyond. The narrative then transitions to his experiences at sea, where he encounters various passengers and faces the perils of stormy weather. These experiences are painted vividly, from the hectic atmosphere of departure, filled with emotion and farewells, to the trepidation and camaraderie aboard ship as they face the Atlantic’s wrath. The text envelops readers in Whittle's reflections on travel's significance, his interactions with fellow travelers, and the stark beauty of the landscapes he observes, promising a rich tapestry of experiences in the chapters to come. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[],
+			"subjects":	["Europe -- Description and travel", "Middle East -- Description and travel"],
+			"bookshelves":	["Category: Religion/Spirituality", "Category: Travel Writing"],
+			"languages":	["en"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/50879.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/50879.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/50879.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/50879.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/50879.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/50879/pg50879.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/50879/pg50879-h.zip"
+			},
+			"download_count":	1241
 		}, {
 			"id":	43847,
 			"title":	"The Expositor's Bible: The Book of the Twelve Prophets, Vol. 1: Commonly Called the Minor",
@@ -420,6 +498,36 @@
 				"application/octet-stream":	"https://www.gutenberg.org/files/40235/40235-0.zip"
 			},
 			"download_count":	985
+		}, {
+			"id":	62615,
+			"title":	"La Bible d'Amiens",
+			"authors":	[{
+					"name":	"Ruskin, John",
+					"birth_year":	1819,
+					"death_year":	1900
+				}],
+			"summaries":	["\"La Bible d'Amiens\" by John Ruskin is a work of art criticism published in 1884. This book examines the Gothic cathedral of Amiens through its architecture, sculptures, and religious iconography. Ruskin traces the history of Christianity in France, from Saint Firmin's evangelization to the cathedral's thirteenth-century construction. He provides detailed analysis of the western façade's biblical statuary, exploring how prophets, apostles, and the Virgin Mary are depicted. Marcel Proust translated this work into French in 1904, adding extensive notes and a lengthy preface. (This is an automatically generated summary.)"],
+			"editors":	[],
+			"translators":	[{
+					"name":	"Proust, Marcel",
+					"birth_year":	1871,
+					"death_year":	1922
+				}],
+			"subjects":	["Cathédrale d'Amiens"],
+			"bookshelves":	["Category: Architecture", "Category: Art", "Category: History - European", "Category: Religion/Spirituality", "FR Nouveautés", "FR Philosophie, Religion et Morale", "FR Sciences et Techniques", "FR Villes"],
+			"languages":	["fr"],
+			"copyright":	false,
+			"media_type":	"Text",
+			"formats":	{
+				"text/html":	"https://www.gutenberg.org/ebooks/62615.html.images",
+				"application/epub+zip":	"https://www.gutenberg.org/ebooks/62615.epub3.images",
+				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/62615.kf8.images",
+				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/62615.txt.utf-8",
+				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/62615.rdf",
+				"image/jpeg":	"https://www.gutenberg.org/cache/epub/62615/pg62615.cover.medium.jpg",
+				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/62615/pg62615-h.zip"
+			},
+			"download_count":	933
 		}, {
 			"id":	30132,
 			"title":	"The Canon of the Bible",
@@ -621,32 +729,6 @@
 			},
 			"download_count":	811
 		}, {
-			"id":	28536,
-			"title":	"The Astronomy of the Bible: An Elementary Commentary on the Astronomical References of Holy Scripture",
-			"authors":	[{
-					"name":	"Maunder, E. Walter (Edward Walter)",
-					"birth_year":	1851,
-					"death_year":	1928
-				}],
-			"summaries":	["\"The Astronomy of the Bible\" by E. Walter Maunder is a scientific commentary on the astronomical references found in Holy Scripture, written in the early 20th century. The work aims to bridge the gap between ancient spiritual insights and modern astronomical understanding by interpreting biblical texts through an astronomical lens. This exploration reveals how the authors of the Bible viewed and understood the heavenly bodies, connecting their observations to historical and cultural contexts.  The opening of the book sets the stage for an examination of how astronomical principles can enhance our understanding of biblical texts. Maunder articulates the gap between the scientifically informed perspectives of modern astronomers and the ancient views represented in Scripture, emphasizing that the biblical narrative is not primarily scientific, but rich in spiritual meaning. He introduces the idea that astronomical knowledge was present even in ancient times and that biblical references to the cosmos serve to illustrate the attributes of God rather than to provide a scientific treatise on the heavens. Maunder's approach invites readers to reconsider the significance of the stars and celestial phenomena within the context of faith and spirituality, establishing a foundational framework for further exploration throughout the rest of the text. (This is an automatically generated summary.)"],
-			"editors":	[],
-			"translators":	[],
-			"subjects":	["Astronomy in the Bible", "Constellations"],
-			"bookshelves":	["Astronomy", "Category: Religion/Spirituality", "Category: Science - Physics"],
-			"languages":	["en"],
-			"copyright":	false,
-			"media_type":	"Text",
-			"formats":	{
-				"text/html":	"https://www.gutenberg.org/ebooks/28536.html.images",
-				"application/epub+zip":	"https://www.gutenberg.org/ebooks/28536.epub3.images",
-				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/28536.kf8.images",
-				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/28536.txt.utf-8",
-				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/28536.rdf",
-				"image/jpeg":	"https://www.gutenberg.org/cache/epub/28536/pg28536.cover.medium.jpg",
-				"application/octet-stream":	"https://www.gutenberg.org/files/28536/28536-0.zip"
-			},
-			"download_count":	746
-		}, {
 			"id":	8001,
 			"title":	"The Bible, King James version, Book 1: Genesis",
 			"authors":	[{
@@ -781,91 +863,5 @@
 				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/415.txt.utf-8"
 			},
 			"download_count":	672
-		}, {
-			"id":	77715,
-			"title":	"The story of Mary Jones and her Bible",
-			"authors":	[{
-					"name":	"Ropes, Mary E. (Mary Emily)",
-					"birth_year":	1842,
-					"death_year":	1932
-				}],
-			"summaries":	[],
-			"editors":	[],
-			"translators":	[],
-			"subjects":	["Bible -- Juvenile fiction", "Children -- Conduct of life -- Juvenile fiction", "Christian life -- Juvenile fiction", "Conduct of life -- Juvenile fiction", "Faith -- Juvenile fiction", "Glory of God -- Juvenile fiction", "Jones, Mary, 1784-1864 -- Juvenile fiction", "Literacy -- Juvenile fiction", "Prayer -- Juvenile fiction"],
-			"bookshelves":	[],
-			"languages":	["en"],
-			"copyright":	false,
-			"media_type":	"Text",
-			"formats":	{
-				"text/html":	"https://www.gutenberg.org/ebooks/77715.html.images",
-				"application/epub+zip":	"https://www.gutenberg.org/ebooks/77715.epub3.images",
-				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/77715.kf8.images",
-				"text/plain; charset=utf-8":	"https://www.gutenberg.org/ebooks/77715.txt.utf-8",
-				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/77715.rdf",
-				"image/jpeg":	"https://www.gutenberg.org/cache/epub/77715/pg77715.cover.medium.jpg",
-				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/77715/pg77715-h.zip"
-			},
-			"download_count":	671
-		}, {
-			"id":	43550,
-			"title":	"The Bible of Bibles; Or, Twenty-Seven \"Divine\" Revelations",
-			"authors":	[{
-					"name":	"Graves, Kersey",
-					"birth_year":	1813,
-					"death_year":	1883
-				}, {
-					"name":	"Graves, Lydia M.",
-					"birth_year":	null,
-					"death_year":	null
-				}],
-			"summaries":	["\"The Bible of Bibles; Or, Twenty-Seven 'Divine' Revelations\" by Kersey Graves is a critical examination of various sacred texts, written in the late 19th century. This work delves into 27 different religious scriptures and scrutinizes them alongside the Christian Bible, aiming to highlight thousands of perceived errors in moral, historical, and scientific assertions within the Bible. The book boldly contends that the religious beliefs of the past—which it claims are deeply flawed—must adapt to fit the moral and intellectual advancements of contemporary society.  At the start of this volume, the author outlines the pressing religious upheaval of the time and promotes the idea that humanity is on the verge of a significant reformation in thought and morality. Graves discusses how old institutions are faltering under the weight of enlightenment and urges readers to reconsider the absolute truths that religious texts, including the Bible, purport. He intends for his analysis to contribute to the burgeoning era of reason and science, revealing how rigid dogmas inhibit moral progression. This opening section sets the stage for a comprehensive critique that promises to challenge conventional religious beliefs and provoke thoughtful discussion. (This is an automatically generated summary.)"],
-			"editors":	[],
-			"translators":	[],
-			"subjects":	["Free thought"],
-			"bookshelves":	["Category: History - Religious", "Category: Philosophy & Ethics", "Category: Religion/Spirituality"],
-			"languages":	["en"],
-			"copyright":	false,
-			"media_type":	"Text",
-			"formats":	{
-				"text/html":	"https://www.gutenberg.org/ebooks/43550.html.images",
-				"application/epub+zip":	"https://www.gutenberg.org/ebooks/43550.epub3.images",
-				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/43550.kf8.images",
-				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/43550.txt.utf-8",
-				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/43550.rdf",
-				"image/jpeg":	"https://www.gutenberg.org/cache/epub/43550/pg43550.cover.medium.jpg",
-				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/43550/pg43550-h.zip"
-			},
-			"download_count":	661
-		}, {
-			"id":	42258,
-			"title":	"The Expositor's Bible: The Acts of the Apostles, Vol. 1",
-			"authors":	[{
-					"name":	"Stokes, George Thomas",
-					"birth_year":	1843,
-					"death_year":	1898
-				}],
-			"summaries":	["\"The Expositor's Bible: The Acts of the Apostles, Vol. 1\" by George Thomas Stokes is an exposition of the New Testament written in the late 19th century. The work focuses on the Acts of the Apostles, a historical account detailing the early Christian Church, particularly the narratives leading up to the conversion of St. Paul and the baptism of Cornelius. The author seeks to illustrate the significance of early Christian events by referencing various ancient documents and the testimonies of early Church figures.  At the start of the volume, the author outlines the purpose and scope of the exposition, indicating that it intends to analyze the Acts of the Apostles, emphasizing its importance in understanding the formative years of Christianity. Stokes references notable early historical figures and documents as foundational to his study, establishing a context for exploring the origins and authority of the text. He also contemplates the role of certain figures, such as Tertullian, in confirming the existence and authorship of the Acts, thereby laying the groundwork for a deeper examination of the text's teachings and their implications for the early Church. (This is an automatically generated summary.)"],
-			"editors":	[{
-					"name":	"Nicoll, W. Robertson (William Robertson), Sir",
-					"birth_year":	1851,
-					"death_year":	1923
-				}],
-			"translators":	[],
-			"subjects":	["Bible. Acts -- Commentaries", "Bible. Acts -- Criticism, interpretation, etc."],
-			"bookshelves":	["Category: History - Religious", "Category: Religion/Spirituality"],
-			"languages":	["en"],
-			"copyright":	false,
-			"media_type":	"Text",
-			"formats":	{
-				"text/html":	"https://www.gutenberg.org/ebooks/42258.html.images",
-				"application/epub+zip":	"https://www.gutenberg.org/ebooks/42258.epub3.images",
-				"application/x-mobipocket-ebook":	"https://www.gutenberg.org/ebooks/42258.kf8.images",
-				"text/plain; charset=us-ascii":	"https://www.gutenberg.org/ebooks/42258.txt.utf-8",
-				"application/rdf+xml":	"https://www.gutenberg.org/ebooks/42258.rdf",
-				"image/jpeg":	"https://www.gutenberg.org/cache/epub/42258/pg42258.cover.medium.jpg",
-				"application/octet-stream":	"https://www.gutenberg.org/cache/epub/42258/pg42258-h.zip"
-			},
-			"download_count":	655
 		}]
 }

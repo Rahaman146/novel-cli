@@ -34,6 +34,7 @@ int extract_novel_info(char *html, char titles[10][256], char yearly_views[10][2
     }
 
     card_pos = strstr(card_pos, "mantine-Card-root");
+    if (!card_pos) break;
 
     char *rating_pos = strstr(card_pos, "mantine-807m0k");
     if (rating_pos) {
@@ -179,12 +180,18 @@ void search_webnovel() {
   char slugs[10][256] = {0};
 
   int count = extract_novel_info(html, titles, yearly_views, chapters, ratings, slugs);
-  
+
   clear();
   mvprintw(0, 0, "%d RESULTS for '%s':\n\n", count, query);
 
   if (count == 0) {
-    mvprintw(2, 0, "No results. Check debug.html");
+    mvprintw(1, 0, "Search result not found.");
+    mvprintw(2, 0, "Press any key to continue...");
+    refresh();
+    getch();
+    free(html);
+    endwin();
+    return;
   } else {
     int selected_novel = display_webnovel_list(titles, count, yearly_views, chapters, ratings, slugs);
     if(selected_novel == -1) return;
@@ -195,7 +202,6 @@ void search_webnovel() {
       int total_chapters = fetch_novel_chapters(slugs[selected_novel], novel_chapters, novel_chapter_titles);
 
       int selected_chapter = show_chapter_browser(novel_chapters, novel_chapter_titles, total_chapters, titles[selected_novel], slugs[selected_novel]);
-
     }
   }
 
