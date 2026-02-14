@@ -5,6 +5,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <curl/curl.h>
 #include <cjson/cJSON.h>
 #include <ncurses.h>
@@ -274,12 +275,6 @@ static void extract_chapter_text_divs(const char* html, char* output, size_t max
 //   *dst = '\0';
 // }
 
-
-#include <ncurses.h>
-#include <string.h>
-#include <strings.h>  // Add this for strncasecmp
-#include <stdlib.h>
-#include <ctype.h>
 
 /**
  * Helper function to decode HTML entities
