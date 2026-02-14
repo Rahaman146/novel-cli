@@ -556,10 +556,13 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
         clear();
         
         // Display header
-        attron(A_BOLD);
-        mvprintw(0, 0, "%s - Chapter %d", novel_title, chapter_num);
-        attroff(A_BOLD);
-        mvprintw(1, 0, "---");
+        attron(COLOR_PAIR(2) | A_BOLD);
+        mvprintw(0, 2, "📖 %s - Chapter %d", novel_title, chapter_num);
+        attroff(COLOR_PAIR(2) | A_BOLD);
+
+        attron(A_DIM);
+        mvhline(1, 0, ACS_HLINE, max_x);
+        attroff(A_DIM);
         
         // Display content
         for (int i = 0; i < content_height && (scroll_pos + i) < line_count; i++) {
@@ -567,15 +570,16 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
         }
         
         // Display footer
-        mvprintw(max_y - 1, 0, "↑/↓: Scroll | PgUp/PgDn: Page | Home/End | q: Quit | %d/%d", 
-                 scroll_pos + 1, line_count);
+        attron(COLOR_PAIR(4) | A_DIM);
+        mvprintw(max_y - 1, 2, "← Prev Page   q Back   ↑/↓ Scroll   Line %d/%d", scroll_pos + 1, line_count > 0 ? line_count : 1);
+        attroff(COLOR_PAIR(4) | A_DIM);
         
         refresh();
         
         // Handle input
         ch = getch();
         
-        if (ch == 'q' || ch == 'Q' || ch == 27) { // q or ESC
+        if (ch == 'q' || ch == 'Q' || ch == KEY_LEFT) {
             break;
         } else if (ch == KEY_UP && scroll_pos > 0) {
             scroll_pos--;
