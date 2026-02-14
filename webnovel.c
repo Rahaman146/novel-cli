@@ -3,6 +3,7 @@
 #include "webnovel.h"
 #include "network.h"
 #include "ui.h"
+#include "cache.h"
 #include "chapter_controller.h"
 
 #include <curl/curl.h>
@@ -12,17 +13,41 @@
 #include <ctype.h>
 #include <ncurses.h>
 
+#define MAX_RESULTS 300
+#define MAX_PAGES 50
+PageCache page_cache[MAX_PAGES];
+
 struct Memory {
   char *data;
   size_t size;
 };
 
-int extract_novel_info(char *html, char titles[10][256], char yearly_views[10][256], char chapters[10][256], char ratings[10][256], char slugs[10][256]) {
+PageCache* get_cached_page(int page)
+{
+  for (int i = 0; i < MAX_PAGES; i++) {
+    if (page_cache[i].is_valid &&
+      page_cache[i].page_number == page)
+      return &page_cache[i];
+  }
+  return NULL;
+}
+
+void clear_cache()
+{
+  for (int i = 0; i < MAX_PAGES; i++) {
+    page_cache[i].is_valid = 0;
+    page_cache[i].page_number = -1;
+    page_cache[i].count = 0;
+  }
+}
+
+int extract_novel_info(char *html, char titles[12][256], char yearly_views[12][256], char chapters[12][256], char ratings[12][256], char slugs[12][256]) {
   int count = 0;
 
   char *card_pos = html;
-  while (count < 10) {
+  while (count < 15) {
     char *slug_pos = strstr(card_pos, "/novel/");
+    if (!slug_pos) break;
     if (slug_pos) {
       slug_pos += 7;
       char *slug_end = strchr(slug_pos, '"');
@@ -137,13 +162,63 @@ char *fetch_url(const char *url) {
   return chunk.data;
 }
 
+int fetch_page(int current_page, PageCache* out_page, char* escaped)
+{
+  if (!out_page)
+    return -1;
+
+  char url[512];
+  snprintf(url, sizeof(url),
+           "https://wuxia.click/search/%s?page=%d&order_by=-total_views",
+           escaped, current_page);
+
+  clear();
+  attron(COLOR_PAIR(2));
+  mvprintw(0, 0, "Fetching page %d...", current_page);
+  attroff(COLOR_PAIR(2));
+  refresh();
+
+  /* ---- Fetch HTML ---- */
+  char* html = fetch_url(url);
+  if (!html) {
+    return -1;
+  }
+
+  char titles[12][256] = {0};
+  char yearly_views[12][256] = {0};
+  char chapters[12][256] = {0};
+  char ratings[12][256] = {0};
+  char slugs[12][256] = {0};
+  int count = extract_novel_info(html, titles, yearly_views, chapters, ratings, slugs);
+
+  free(html);
+
+  if (count <= 0)
+    return -1;
+
+  out_page->page_number = current_page;
+  out_page->count = count;
+  out_page->is_valid = 1;
+
+  memcpy(out_page->titles, titles, sizeof(titles));
+  memcpy(out_page->slugs, slugs, sizeof(slugs));
+  memcpy(out_page->ratings, ratings, sizeof(ratings));
+  memcpy(out_page->yearly_views, yearly_views, sizeof(yearly_views));
+  memcpy(out_page->chapters, chapters, sizeof(chapters));
+
+  return count;
+}
+
 void search_webnovel() {
+
   initscr();
   cbreak();
   echo();
   clear();
 
+  attron(COLOR_PAIR(4));
   mvprintw(0, 0, "🔍 Enter novel title: ");
+  attroff(COLOR_PAIR(4));
   refresh();
 
   char query[256];
@@ -152,61 +227,55 @@ void search_webnovel() {
 
   CURL *curl = curl_easy_init();
   char *escaped = curl_easy_escape(curl, query, 0);
-  char url[512];
-  snprintf(url, sizeof(url), "https://wuxia.click/search/%s?order_by=-yearly_views", escaped);
-  curl_free(escaped);
-  curl_easy_cleanup(curl);
 
-  clear();
-  mvprintw(0, 0, "Fetching %s...", query);
-  refresh();
+  clear_cache();
+  int current_page = 1;
 
-  char *html = fetch_url(url);
-  if (!html) {
-    mvprintw(3, 0, "Failed to fetch");
-    refresh();
-    getch();
-    endwin();
-    return;
-  }
+  while (1) {
 
-  FILE *debug = fopen("debug.html", "w");
-  if (debug) { fputs(html, debug); fclose(debug); }
+    PageCache* cached = get_cached_page(current_page);
+    int count, action;
 
-  char titles[10][256] = {0};
-  char yearly_views[10][256] = {0};
-  char chapters[10][256] = {0};
-  char ratings[10][256] = {0};
-  char slugs[10][256] = {0};
+    if (!cached) {
+      if (fetch_page(current_page, &page_cache[current_page], escaped) <= 0){
+        clear();
+        attron(COLOR_PAIR(4));
+        mvprintw(0, 0, "No Search Results Found.");
+        mvprintw(1, 0, "Press any key to go back...");
+        attroff(COLOR_PAIR(4));
+        refresh();
+        getch();
+        break;
+      }
 
-  int count = extract_novel_info(html, titles, yearly_views, chapters, ratings, slugs);
+      cached = &page_cache[current_page];
+    }
 
-  clear();
-  mvprintw(0, 0, "%d RESULTS for '%s':\n\n", count, query);
+    count = cached->count;
 
-  if (count == 0) {
-    mvprintw(1, 0, "Search result not found.");
-    mvprintw(2, 0, "Press any key to continue...");
-    refresh();
-    getch();
-    free(html);
-    endwin();
-    return;
-  } else {
-    int selected_novel = display_webnovel_list(titles, count, yearly_views, chapters, ratings, slugs);
-    if(selected_novel == -1) return;
+    action = display_webnovel_list(
+      cached->titles,
+      count,
+      cached->yearly_views,
+      cached->chapters,
+      cached->ratings,
+      cached->slugs,
+      &current_page
+    );
 
-    if(selected_novel >= 0) {
+    if (action == -2) {
+      break;
+    }
+    else if (action >= 0) {
       char novel_chapters[3500][128] = {0};
       char novel_chapter_titles[3500][128] = {0};
-      int total_chapters = fetch_novel_chapters(slugs[selected_novel], novel_chapters, novel_chapter_titles);
 
-      int selected_chapter = show_chapter_browser(novel_chapters, novel_chapter_titles, total_chapters, titles[selected_novel], slugs[selected_novel]);
+      int total_chapters = fetch_novel_chapters(cached->slugs[action], novel_chapters, novel_chapter_titles);
+      show_chapter_browser(novel_chapters, novel_chapter_titles, total_chapters, cached->titles[action], cached->slugs[action]);
     }
   }
 
-  refresh();
-  getch();
-  free(html);
+  curl_free(escaped);
+  curl_easy_cleanup(curl);
   endwin();
 }

@@ -9,7 +9,7 @@
 #include <string.h>
 #include <sys/stat.h>
 
-void open_library(char *options[], int n_options) {
+void open_library() {
   DIR *dir = opendir("library");
   if (!dir) {
     printf("Library folder not found.\n");
@@ -37,22 +37,25 @@ void open_library(char *options[], int n_options) {
     return;
   }
 
-  int choice = display_menu(books, count);
+  while (1) {
+    int choice = display_menu(books, count);
 
-  char path[512];
-  snprintf(path, sizeof(path), "./library/%s", books[choice]);
-
-  FILE *fp = fopen(path, "r");
-  int res = display_book(fp);
-  if(res == -1){ 
-    int choice = display_menu(options, n_options);
-    if (choice == -1){
-      return;
+    if (choice == -1) {
+      break;
     }
-    select_main_menu(choice, options, n_options);
+
+    char path[512];
+    snprintf(path, sizeof(path), "./library/%s", books[choice]);
+
+    FILE *fp = fopen(path, "r");
+    if (fp) {
+      display_book(fp);
+      fclose(fp);
+    }
   }
 
-  for (int i = 0; i < count; i++) free(books[i]);
+  for (int i = 0; i < count; i++)
+    free(books[i]);
 }
 
 FILE* in_Library(char *book_name) {

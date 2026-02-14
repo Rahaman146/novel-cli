@@ -11,7 +11,9 @@
 #include <cjson/cJSON.h>
 #include <ncurses.h>
 
+
 FILE* select_main_menu(int choice, char* main_options[], int size_main_options) {
+  (void) size_main_options;
   if(choice == 0){
     CURL* handle;
     CURLcode result;
@@ -22,7 +24,9 @@ FILE* select_main_menu(int choice, char* main_options[], int size_main_options) 
 
     echo();
     clear();
+    attron(COLOR_PAIR(4));
     mvprintw(0, 0, "Enter book name: ");
+    attroff(COLOR_PAIR(4));
     getnstr(book_name, sizeof(book_name) - 1);
     refresh();
     noecho();
@@ -64,8 +68,10 @@ FILE* select_main_menu(int choice, char* main_options[], int size_main_options) 
 
     if (count_val == 0) {
       clear();
+      attron(COLOR_PAIR(4));
       mvprintw(0, 0, "Search result not found.");
       mvprintw(1, 0, "Press any key to continue...");
+      attroff(COLOR_PAIR(4));
       refresh();
       getch();
       cJSON_Delete(json);
@@ -80,22 +86,32 @@ FILE* select_main_menu(int choice, char* main_options[], int size_main_options) 
       result_item = result_item->next;
     }
 
-    int book_choice = display_menu(book_options, display_count);
-    if (book_choice == -1){
-      return NULL;
-    }
-    FILE* cached_book = in_Library(book_options[book_choice]);
+    while (1) {
 
-    if(cached_book == NULL) {
-      cached_book = download_book(results, book_choice, book_options);
+      int book_choice = display_menu(book_options, display_count);
+
+      if (book_choice == -1) {
+        break;
+      }
+
+      FILE* cached_book = in_Library(book_options[book_choice]);
+
+      if (cached_book == NULL) {
+        cached_book = download_book(results, book_choice, book_options);
+      }
+
+      if (cached_book) {
+        display_book(cached_book);
+        fclose(cached_book);
+      }
     }
 
     cJSON_Delete(json);
     curl_easy_cleanup(handle);
-    return cached_book;
+    return NULL;
   }
   if(choice == 1){ 
-    open_library(main_options, size_main_options); 
+    open_library(); 
     return NULL;
   }
   if(choice == 2){

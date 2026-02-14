@@ -1,30 +1,70 @@
 #define _POSIX_C_SOURCE 200809L
+#define _GNU_SOURCE
 
 #include "ui.h"
 #include <stdlib.h>
 #include <string.h>
 #include <ncurses.h>
 #include <locale.h>
+#include <ctype.h>
+#include <math.h>
 
 #define MAX_LINE 1024
+#define ITEMS_PER_PAGE 12
+
+void truncate_with_ellipsis(char *dest, const char *src, int max_width)
+{
+  int len = strlen(src);
+
+  if (len <= max_width) {
+    strcpy(dest, src);
+    return;
+  }
+
+  if (max_width <= 3) {
+    strncpy(dest, src, max_width);
+    dest[max_width] = '\0';
+    return;
+  }
+
+  strncpy(dest, src, max_width - 3);
+  dest[max_width - 3] = '\0';
+  strcat(dest, "...");
+}
 
 int display_menu(char *options[], int n_options) {
   int highlight = 0;
   int choice = -1;
   int c;
 
+  int rows, cols;
+  getmaxyx(stdscr, rows, cols);
+  char truncated[512];
+
   while (1) {
     clear();
 
     for (int i = 0; i < n_options; i++) {
+
       if (i == highlight) {
-        attron(A_REVERSE);
-        printw("%s\n", options[i]);
-        attroff(A_REVERSE);
+        attron(COLOR_PAIR(5));
+        mvprintw(i, 0, "▌");
+        attroff(COLOR_PAIR(5));
+
+        attron(COLOR_PAIR(5) | A_DIM);
+        mvprintw(i, 2, "%d\n", i+1);
+        truncate_with_ellipsis(truncated, options[i], cols - 6);
+        mvprintw(i, 5, "%s", truncated);
+        attroff(COLOR_PAIR(5) | A_DIM);
       } else {
-        printw("%s\n", options[i]);
+        mvprintw(i, 2, "%d\n", i+1);
+        truncate_with_ellipsis(truncated, options[i], cols - 6);
+        mvprintw(i, 5, "%s", truncated);
       }
     }
+    attron(COLOR_PAIR(4));
+    mvprintw(rows - 1, 2, "↑↓ Move   ← Prev Page   q Back   Enter Open");
+    attroff(COLOR_PAIR(4));
 
     c = getch();
 
@@ -44,7 +84,7 @@ int display_menu(char *options[], int n_options) {
       case 10:  // Enter key
         choice = highlight;
         break;
-      
+
       case KEY_LEFT:
         return -1;
       case 'q':
@@ -58,47 +98,123 @@ int display_menu(char *options[], int n_options) {
   return choice;
 }
 
-int display_webnovel_list(char title[10][256], int count, char yearly_views[10][256], char chapters[10][256], char ratings[10][256], char slugs[10][256]) {
+int display_webnovel_list(
+  char title[][256],
+  int count,
+  char yearly_views[][256],
+  char chapters[][256],
+  char ratings[][256],
+  char slugs[][256],
+  int *current_page)
+{
+  (void) slugs;
   int highlight = 0;
   int choice = -1;
   int c;
 
+  char search[256] = "";
+  int search_len = 0;
+
+  int filtered[50];
+  int filtered_count = 0;
+
   while (1) {
+
     clear();
+    filtered_count = 0;
 
     for (int i = 0; i < count; i++) {
-      if (i == highlight) {
-        attron(A_REVERSE);
-        printw("%s, (Views: %s), (Chapters: %s), (Rating: %s) \n", title[i], yearly_views[i], chapters[i], ratings[i]);
-        attroff(A_REVERSE);
-      } else {
-        printw("%s, (Views: %s), (Chapters: %s), (Rating: %s) \n", title[i], yearly_views[i], chapters[i], ratings[i]);
+      if (strcasestr(title[i], search) != NULL) {
+        filtered[filtered_count++] = i;
       }
     }
 
+    int rows, cols;
+    getmaxyx(stdscr, rows, cols);
+
+    attron(COLOR_PAIR(4));
+    mvprintw(0, 2, "Search webnovel: %s", search);
+    attroff(COLOR_PAIR(4));
+
+    attron(COLOR_PAIR(5));
+    mvprintw(0, cols - 15, "Page %d", *current_page);
+    attroff(COLOR_PAIR(5));
+
+    attron(COLOR_PAIR(5));
+    mvhline(1, 0, ACS_HLINE, cols);
+    attroff(COLOR_PAIR(5));
+
+    int row = 2;
+
+    for (int i = 0; i < filtered_count; i++) {
+
+      int idx = filtered[i];
+
+      if (i == highlight) {
+        attron(COLOR_PAIR(5));
+        mvprintw(row, 0, "▌");
+        mvprintw(row, 1, "%d", 12*(*current_page - 1) + i + 1);
+        mvprintw(row, 5, "%s (Views:%s | Ch:%s | Rating:%s)", title[idx], yearly_views[idx], chapters[idx], ratings[idx]);
+        attroff(COLOR_PAIR(5));
+      } else {
+        mvprintw(row, 1, "%d", 12*(*current_page - 1) + i + 1);
+        mvprintw(row, 5, "%s (Views:%s | Ch:%s | Rating:%s)", title[idx], yearly_views[idx], chapters[idx], ratings[idx]);
+      }
+
+      row++;
+    }
+
+    attron(COLOR_PAIR(4));
+    mvprintw(rows - 1, 2, "← Prev Page   → Next Page   ↑↓ Navigate   Enter Select   ESC Exit");
+    attroff(COLOR_PAIR(4));
+
+    move(0, 19 + search_len);
+    curs_set(1);
+
     c = getch();
 
-    switch (c) {
-      case KEY_UP:
-        highlight--;
-        if (highlight < 0)
-          highlight = count - 1;
-        break;
+    if (c == 27) {
+      return -2;
+    }
+    else if (c == KEY_BACKSPACE || c == 127) {
+      if (search_len > 0) {
+        search[--search_len] = '\0';
+      }
+    }
+    else if (isprint(c) && search_len < 255) {
+      search[search_len++] = c;
+      search[search_len] = '\0';
+    }
+    else {
 
-      case KEY_DOWN:
-        highlight++;
-        if (highlight >= count)
-          highlight = 0;
-        break;
+      switch (c) {
 
-      case 10:  // Enter key
-        choice = highlight;
-        break;
-      
-      case KEY_LEFT:
-        return -1;
-      case 'q':
-        return -1;
+        case KEY_UP:
+          if (highlight > 0)
+            highlight--;
+          break;
+
+        case KEY_DOWN:
+          if (highlight < filtered_count - 1)
+            highlight++;
+          break;
+
+        case KEY_RIGHT:
+          (*current_page)++;
+          return -1;
+
+        case KEY_LEFT:
+          if (*current_page > 1) {
+            (*current_page)--;
+            return -1;
+          }
+          break;
+
+        case 10:
+          if (filtered_count > 0)
+            choice = filtered[highlight];
+          break;
+      }
     }
 
     if (choice != -1)
@@ -144,12 +260,10 @@ int display_book(FILE* fp) {
 
   while (1) {
     clear();
-
     int rows, cols;
     getmaxyx(stdscr, rows, cols);
 
     int screen_row = 0;
-
     for (int i = offset; i < count && screen_row < rows - 1; i++) {
 
       char *line = lines[i];
@@ -163,23 +277,23 @@ int display_book(FILE* fp) {
       }
     }
 
-    mvprintw(rows - 1, 0, "<- = main menu | q = quit | ↑↓ scroll | PgUp/PgDn page");
+    attron(COLOR_PAIR(4));
+    mvprintw(rows - 1, 0, "<- Main Menu   q = Quit   ↑↓ Scroll   PgUp/PgDn page");
+    attroff(COLOR_PAIR(4));
 
     refresh();
 
     ch = getch();
 
-    if (ch == 'q')
-      break;
-    else if (ch == KEY_UP && offset > 0)
+    if (ch == KEY_UP && offset > 0)
       offset--;
     else if (ch == KEY_DOWN && offset < count - 1)
       offset++;
-    else if (ch == KEY_NPAGE)   // Page Down
+    else if (ch == KEY_NPAGE)
       offset += rows;
-    else if (ch == KEY_PPAGE)   // Page Up
+    else if (ch == KEY_PPAGE)
       offset -= rows;
-    else if (ch == KEY_LEFT){
+    else if (ch == 'q' || ch == KEY_LEFT){
       progress = fopen(".progress", "w");
       if (progress) {
         fprintf(progress, "%d\n", offset);

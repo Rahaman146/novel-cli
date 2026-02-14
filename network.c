@@ -65,12 +65,17 @@ FILE* download_book(cJSON* results, int choice, char *options[])
   return fopen(filedir, "r");
 }
 
+char* fetch_chapter_content(const char* chapter_slug)
+{
+  char url[512];
+  snprintf(url, sizeof(url), "https://wuxia.click/chapter/%s", chapter_slug);
+  return fetch_url(url);
+}
+
 int fetch_novel_chapters(const char* slug, char chapters[3500][128],char chapter_titles[3500][128])
 {
   char url[512];
-  snprintf(url, sizeof(url),
-           "https://wuxiaworld.eu/api/chapters/%s/",
-           slug);
+  snprintf(url, sizeof(url), "https://wuxiaworld.eu/api/chapters/%s/", slug);
 
   char* json_data = fetch_url(url);
   if (!json_data) return 0;
@@ -113,14 +118,4 @@ int fetch_novel_chapters(const char* slug, char chapters[3500][128],char chapter
   free(json_data);
 
   return count;
-}
-
-char* fetch_chapter_content(const char* chapter_slug)
-{
-  char url[512];
-  snprintf(url, sizeof(url),
-           "https://wuxia.click/chapter/%s",
-           chapter_slug);
-
-  return fetch_url(url);
 }

@@ -16,38 +16,47 @@ WINDOW* create_chapter_window() {
   int max_y, max_x;
   getmaxyx(stdscr, max_y, max_x);
 
-  return newwin(CHAPTER_WINDOW_HEIGHT, CHAPTER_WINDOW_WIDTH, 
-                (max_y - CHAPTER_WINDOW_HEIGHT) / 2, 
-                (max_x - CHAPTER_WINDOW_WIDTH) / 2);
+  return newwin(CHAPTER_WINDOW_HEIGHT, CHAPTER_WINDOW_WIDTH, (max_y - CHAPTER_WINDOW_HEIGHT) / 2,  (max_x - CHAPTER_WINDOW_WIDTH) / 2);
 }
 
 void display_chapter_list(char chapters[3500][128], int total, int offset, int highlight, const char* novel_title) {
+
   clear();
+  int rows, cols;
+  getmaxyx(stdscr, rows, cols);
+  (void) cols;
+
+  attron(COLOR_PAIR(4));
   mvprintw(0, 0, "📖 %s CHAPTERS (%d/%d total)", novel_title, total, total); 
+  attroff(COLOR_PAIR(4));
+  attron(COLOR_PAIR(5) | A_DIM);
   mvprintw(1, 0, "═══════════════════════════════════════════════════════════════");
+  attroff(COLOR_PAIR(5) | A_DIM);
 
   int start = offset;
   int end = offset + CHAPTERS_VISIBLE;
   if (end > total) end = total;
+  int row = 0;
 
   for (int i = start; i < end; i++) {
-    int row = 3 + (i - start);
+    row = 3 + (i - start);
     if (i == highlight) {
-      attron(A_REVERSE | A_BOLD);
+      attron(COLOR_PAIR(5) | A_DIM);
       mvprintw(row, 0, "➤ %4d: %s", i+1, chapters[i]);
-      attroff(A_REVERSE | A_BOLD);
+      attroff(COLOR_PAIR(5) | A_DIM);
     } else {
       mvprintw(row, 0, "  %4d: %s", i+1, chapters[i]);
     }
   }
 
-  if (offset > 0) 
-    mvprintw(15, 0, "↑ ↑ ↑ PAGE UP ↑ ↑ ↑");
-  if (end < total) 
-    mvprintw(16, 0, "↓ ↓ ↓ PAGE DOWN ↓ ↓ ↓");
+  attron(COLOR_PAIR(5) | A_DIM);
+  mvprintw(row + 2, 0, "═══════════════════════════════════════════════════════════════");
+  attroff(COLOR_PAIR(5) | A_DIM);
 
-  mvprintw(18, 0, "[↑↓=move] [PgUp/PgDn=page] [/=search chap] [q=back] [Enter=open]");
-  move(19, 0);
+  attron(COLOR_PAIR(4));
+  mvprintw(rows - 1, 2, "↑↓ Move   / Search Chapter   q Back   Enter Open");
+  attroff(COLOR_PAIR(4));
+  move(21, 0);
   refresh();
 }
 
@@ -79,7 +88,11 @@ int show_chapter_browser(char chapters[3500][128], char chapter_titles[3500][128
         break;
 
       case '/': {
-        echo(); mvprintw(20, 0, "Enter chapter: "); refresh();
+        echo(); 
+        attron(COLOR_PAIR(4));
+        mvprintw(21, 0, "Enter chapter: "); 
+        attroff(COLOR_PAIR(4));
+        refresh();
         char search_buf[16]; getnstr(search_buf, 15); noecho();
         int target = atoi(search_buf);
         if (target > 0 && target <= total) {
@@ -89,7 +102,7 @@ int show_chapter_browser(char chapters[3500][128], char chapter_titles[3500][128
         break;
       }
 
-      case 10: {  // Enter key
+      case 10: {
         char* chapter_html = fetch_chapter_content(chapters[highlight]);
 
         FILE* debug = fopen("debug1.html", "w");
@@ -105,7 +118,7 @@ int show_chapter_browser(char chapters[3500][128], char chapter_titles[3500][128
         break;
       }
 
-      case 'q': case 'Q':
+      case 'q': case 'Q': case KEY_LEFT:
         return -1;
     }
   }
@@ -122,7 +135,6 @@ static void extract_text_recursive(myhtml_tree_node_t* node, char** buffer, size
 
     if (text && text_len > 0) {
       for (size_t i = 0; i < text_len; i++) {
-        // Buffer management
         if (*current_len + 2 >= *buffer_size) {
           *buffer_size *= 2;
           *buffer = realloc(*buffer, *buffer_size);
@@ -130,9 +142,7 @@ static void extract_text_recursive(myhtml_tree_node_t* node, char** buffer, size
 
         unsigned char c = (unsigned char)text[i];
 
-        // Treat all "junk" whitespace (tabs, multiple newlines in HTML source) as a single space
         if (isspace(c) || c == 0xA0) {
-          // Only add a space if the previous character wasn't already a space/newline
           if (*current_len > 0 && (*buffer)[*current_len - 1] != ' ' && (*buffer)[*current_len - 1] != '\n') {
             (*buffer)[(*current_len)++] = ' ';
           }
@@ -144,7 +154,6 @@ static void extract_text_recursive(myhtml_tree_node_t* node, char** buffer, size
     }
   }
 
-  // Force structural breaks for specific tags to ensure paragraphs don't run together
   if (tag_id == MyHTML_TAG_P || tag_id == MyHTML_TAG_BR) {
     if (*current_len > 0 && (*buffer)[*current_len - 1] != '\n') {
       (*buffer)[(*current_len)++] = '\n';
@@ -187,7 +196,6 @@ static void normalize_whitespace(char* str) {
     }
   }
 
-  // trim trailing space/newline
   while (dst > str && (dst[-1] == ' ' || dst[-1] == '\n'))
     dst--;
 
@@ -197,14 +205,12 @@ static void normalize_whitespace(char* str) {
 int display_chapter_content(const char* novel_title, int chapter_num, const char* html) {
   if (!html) return 1;
 
-  // Setup HTML parser
   myhtml_t* myhtml = myhtml_create();
   myhtml_init(myhtml, MyHTML_OPTIONS_DEFAULT, 1, 0);
   myhtml_tree_t* tree = myhtml_tree_create();
   myhtml_tree_init(tree, myhtml);
   myhtml_parse(tree, MyENCODING_UTF_8, html, strlen(html));
 
-  // Find all divs with id="chapterText"
   myhtml_collection_t* divs = myhtml_get_nodes_by_tag_id(tree, NULL, MyHTML_TAG_DIV, NULL);
 
   char* chapter_text = malloc(32768);
@@ -230,15 +236,12 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
         if (id_val && strcmp(id_val, "chapterText") == 0) {
           found_content = 1;
 
-          // Extract text from this div
           size_t para_start = current_len;
           extract_text_recursive(node, &chapter_text, &buffer_size, &current_len);
 
-          // Clean this paragraph
           normalize_whitespace(chapter_text + para_start);
           current_len = strlen(chapter_text);
 
-          // Add paragraph break
           if (current_len + 3 < buffer_size) {
             strcat(chapter_text, "\n\n");
             current_len += 2;
@@ -248,7 +251,6 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
     }
   }
 
-  // Cleanup HTML parser
   if (divs) myhtml_collection_destroy(divs);
   myhtml_tree_destroy(tree);
   myhtml_destroy(myhtml);
@@ -261,7 +263,6 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
     return 1;
   }
 
-  // Render loop
   int offset = 0;
   int ch = 0;
 
@@ -270,16 +271,14 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
     getmaxyx(stdscr, max_y, max_x);
     clear();
 
-    // Header
-    attron(A_BOLD);
+    attron(COLOR_PAIR(2) | A_BOLD);
     mvprintw(0, 2, "📖 %s - Chapter %d", novel_title, chapter_num);
-    attroff(A_BOLD);
+    attroff(COLOR_PAIR(2) | A_BOLD);
 
-    // Separator
-    mvprintw(1, 0, "─");
-    for (int i = 1; i < max_x - 1; i++) printw("─");
+    attron(A_DIM);
+    mvhline(1, 0, ACS_HLINE, max_x);
+    attroff(A_DIM);
 
-    // Render text with word wrapping
     int line = 0;
     int col = 4;
     char *p = chapter_text;
@@ -288,14 +287,12 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
     int margin_right = 4;
 
     while (*p) {
-      // Skip leading spaces at line start
       if (col == 4) {
         while (*p == ' ') p++;
       }
 
       if (!*p) break;
 
-      // Handle newlines
       if (*p == '\n') {
         line++;
         col = 4;
@@ -303,7 +300,6 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
         continue;
       }
 
-      // Find next word
       char *word_start = p;
       while (*p && *p != ' ' && *p != '\n') p++;
       int word_len = p - word_start;
@@ -313,13 +309,11 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
         continue;
       }
 
-      // Wrap if needed
       if (col > 4 && col + word_len >= max_x - margin_right) {
         line++;
         col = 4;
       }
 
-      // Draw if visible
       if (line >= offset && line < offset + (visible_end - visible_start)) {
         int screen_y = visible_start + (line - offset);
         mvprintw(screen_y, col, "%.*s", word_len, word_start);
@@ -327,32 +321,27 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
 
       col += word_len;
 
-      // Add space
       if (*p == ' ') {
         if (col < max_x - margin_right) {
-          // Only print the space if we aren't about to wrap anyway
           if (line >= offset && line < offset + (visible_end - visible_start)) {
             mvaddch(visible_start + (line - offset), col, ' ');
           }
           col++;
         }
-        p++; // Always advance p if it was a space
+        p++;
       }
     }
 
     int total_lines = line;
 
-    // Footer
-    attron(A_DIM);
-    mvprintw(max_y - 1, 2, "[q] Back  [↑/↓] Scroll  [PgUp/PgDn] Page  Line %d/%d", 
-             offset + 1, total_lines > 0 ? total_lines : 1);
-    attroff(A_DIM);
+    attron(COLOR_PAIR(4) | A_DIM);
+    mvprintw(max_y - 1, 2, "← Prev Page   q Back   ↑/↓ Scroll   Line %d/%d", offset + 1, total_lines > 0 ? total_lines : 1);
+    attroff(COLOR_PAIR(4) | A_DIM);
 
     refresh();
 
-    // Handle input
     ch = getch();
-    if (ch == 'q' || ch == 'Q') break;
+    if (ch == 'q' || ch == 'Q' || ch == KEY_LEFT) break;
 
     if (ch == KEY_UP && offset > 0) offset--;
     if (ch == KEY_DOWN && offset < total_lines - (visible_end - visible_start)) offset++;

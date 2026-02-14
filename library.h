@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void open_library(char* options[], int n_options);
+void open_library();
 
 FILE* in_Library(char* book_name);
 
