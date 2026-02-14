@@ -276,12 +276,6 @@ static void extract_chapter_text_divs(const char* html, char* output, size_t max
 // }
 
 
-// #include <ncurses.h>
-// #include <string.h>
-// #include <strings.h>  // Add this for strncasecmp
-// #include <stdlib.h>
-// #include <ctype.h>
-
 /**
  * Helper function to decode HTML entities
  */
