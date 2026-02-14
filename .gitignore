@@ -6,8 +6,11 @@
 *.exe
 *.out
 *.app
+novel
 
 # Debug / temporary files
 *.log
 *.dSYM/
 *.swp
+debug*
+*debug.txt

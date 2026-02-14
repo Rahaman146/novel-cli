@@ -9,9 +9,12 @@
 #include <cjson/cJSON.h>
 #include <ncurses.h>
 #include <ctype.h>
-#include <myhtml/api.h>
 
-
+/**
+ * Creates a centered window for displaying chapter content.
+ * 
+ * @return A new ncurses WINDOW pointer centered on the screen
+ */
 WINDOW* create_chapter_window() {
   int max_y, max_x;
   getmaxyx(stdscr, max_y, max_x);
@@ -19,13 +22,23 @@ WINDOW* create_chapter_window() {
   return newwin(CHAPTER_WINDOW_HEIGHT, CHAPTER_WINDOW_WIDTH, (max_y - CHAPTER_WINDOW_HEIGHT) / 2,  (max_x - CHAPTER_WINDOW_WIDTH) / 2);
 }
 
+/**
+ * Displays a paginated list of chapters in the terminal UI.
+ * 
+ * @param chapters Array of chapter slugs/URLs
+ * @param total Total number of chapters
+ * @param offset Current scroll offset (first visible chapter)
+ * @param highlight Currently highlighted chapter index
+ * @param novel_title Title of the novel to display in header
+ */
 void display_chapter_list(char chapters[3500][128], int total, int offset, int highlight, const char* novel_title) {
 
   clear();
   int rows, cols;
   getmaxyx(stdscr, rows, cols);
-  (void) cols;
+  (void) cols; // Unused variable
 
+  // Display header with novel title and chapter count
   attron(COLOR_PAIR(4));
   mvprintw(0, 0, "📖 %s CHAPTERS (%d/%d total)", novel_title, total, total); 
   attroff(COLOR_PAIR(4));
@@ -33,11 +46,13 @@ void display_chapter_list(char chapters[3500][128], int total, int offset, int h
   mvprintw(1, 0, "═══════════════════════════════════════════════════════════════");
   attroff(COLOR_PAIR(5) | A_DIM);
 
+  // Calculate which chapters to display on screen
   int start = offset;
   int end = offset + CHAPTERS_VISIBLE;
   if (end > total) end = total;
   int row = 0;
 
+  // Display visible chapters with highlighting for selected chapter
   for (int i = start; i < end; i++) {
     row = 3 + (i - start);
     if (i == highlight) {
@@ -49,6 +64,7 @@ void display_chapter_list(char chapters[3500][128], int total, int offset, int h
     }
   }
 
+  // Display bottom border and controls
   attron(COLOR_PAIR(5) | A_DIM);
   mvprintw(row + 2, 0, "═══════════════════════════════════════════════════════════════");
   attroff(COLOR_PAIR(5) | A_DIM);
@@ -60,33 +76,50 @@ void display_chapter_list(char chapters[3500][128], int total, int offset, int h
   refresh();
 }
 
+/**
+ * Main chapter browser interface - handles navigation and chapter selection.
+ * 
+ * @param chapters Array of chapter slugs/URLs for fetching content
+ * @param chapter_titles Array of chapter titles for display
+ * @param total Total number of chapters
+ * @param novel_title Novel title for display
+ * @param novel_slug Novel slug (unused)
+ * @return -1 when user exits back to previous screen
+ */
 int show_chapter_browser(char chapters[3500][128], char chapter_titles[3500][128], int total, const char* novel_title, const char* novel_slug __attribute__((unused))) {
-  int offset = 0;
-  int highlight = 0;
+  int offset = 0;      // Scroll position
+  int highlight = 0;   // Selected chapter
 
+  // Main navigation loop
   while (1) {
     display_chapter_list(chapter_titles, total, offset, highlight, novel_title);
 
     int ch = getch();
     switch (ch) {
+      // Navigate up one chapter
       case KEY_UP:
         if (highlight > 0) highlight--;
         if (highlight < offset) offset = highlight;
         break;
 
+      // Navigate down one chapter
       case KEY_DOWN:
         if (highlight < total - 1) highlight++;
         if (highlight >= offset + CHAPTERS_VISIBLE) offset++;
         break;
 
+      // Page Up - jump up by one screen of chapters
       case KEY_PPAGE:
         offset -= CHAPTERS_VISIBLE; if (offset < 0) offset = 0; highlight = offset; break;
+      
+      // Page Down - jump down by one screen of chapters
       case KEY_NPAGE:
         offset += CHAPTERS_VISIBLE; 
         if (offset > total - CHAPTERS_VISIBLE) offset = total - CHAPTERS_VISIBLE;
         highlight = offset; 
         break;
 
+      // Search/Jump to chapter by number
       case '/': {
         echo(); 
         attron(COLOR_PAIR(4));
@@ -102,9 +135,12 @@ int show_chapter_browser(char chapters[3500][128], char chapter_titles[3500][128
         break;
       }
 
+      // Enter key - fetch and display chapter content
       case 10: {
+        // Fetch chapter HTML from server
         char* chapter_html = fetch_chapter_content(chapters[highlight]);
 
+        // Save raw HTML to debug file for troubleshooting
         FILE* debug = fopen("debug1.html", "w");
         if (debug && chapter_html) { fputs(chapter_html, debug); fclose(debug); }
 
@@ -118,246 +154,444 @@ int show_chapter_browser(char chapters[3500][128], char chapter_titles[3500][128
         break;
       }
 
+      // Quit back to novel list
       case 'q': case 'Q': case KEY_LEFT:
         return -1;
     }
   }
 }
 
-static void extract_text_recursive(myhtml_tree_node_t* node, char** buffer, size_t* buffer_size, size_t* current_len) {
-  if (!node) return;
+/**
+ * Extracts text from all id="chapterText" divs in HTML.
+ * 
+ * @param html HTML string to parse
+ * @param output Buffer to store extracted text
+ * @param max_size Maximum size of output buffer
+ */
+static void extract_chapter_text_divs(const char* html, char* output, size_t max_size) {
+  const char* p = html;
+  char* out = output;
+  size_t remaining = max_size - 1;
+  int para_count = 0;
+  
 
-  myhtml_tag_id_t tag_id = myhtml_node_tag_id(node);
+  
+  // Search for all id="chapterText" occurrences
+  while ((p = strstr(p, "id=\"chapterText\"")) != NULL) {
+    para_count++;
+    
+    // Move past id="chapterText" to find the closing '>'
+    p += strlen("id=\"chapterText\"");
+    while (*p && *p != '>') p++;
+    if (!*p) break;
+    p++; // Skip the '>'
+    
+    // Now extract text until we hit '<' (which starts the closing tag)
+    while (*p && *p != '<' && remaining > 2) {
+      unsigned char c = (unsigned char)*p;
+      
+      // Copy character as-is, but handle special cases
+      if (c == 0xC2 && (unsigned char)*(p+1) == 0xA0) {
+        // Non-breaking space (UTF-8: 0xC2 0xA0)
+        *out++ = ' ';
+        remaining--;
+        p += 2;
+      } else if (isspace(c)) {
+        // Regular whitespace
+        *out++ = ' ';
+        remaining--;
+        p++;
+      } else {
+        // Regular character
+        *out++ = c;
+        remaining--;
+        p++;
+      }
+    }
+    
+    // Add paragraph break (two newlines)
+    if (remaining > 2) {
+      *out++ = '\n';
+      *out++ = '\n';
+      remaining -= 2;
+    }
+    
 
-  if (tag_id == MyHTML_TAG__TEXT) {
-    size_t text_len = 0;
-    const char* text = myhtml_node_text(node, &text_len);
+  }
+  
+  // Remove trailing whitespace
+  while (out > output && (out[-1] == ' ' || out[-1] == '\n')) {
+    out--;
+  }
+  
+  *out = '\0';
+  
 
-    if (text && text_len > 0) {
-      for (size_t i = 0; i < text_len; i++) {
-        if (*current_len + 2 >= *buffer_size) {
-          *buffer_size *= 2;
-          *buffer = realloc(*buffer, *buffer_size);
-        }
+}
 
-        unsigned char c = (unsigned char)text[i];
+// /**
+//  * Normalizes whitespace in a string by collapsing multiple spaces/newlines.
+//  * 
+//  * Rules:
+//  * - Multiple spaces become single space
+//  * - Multiple newlines become single newline
+//  * - Trailing whitespace is removed
+//  * 
+//  * @param str String to normalize (modified in-place)
+//  */
+// static void normalize_whitespace(char* str) {
+//   char* src = str;
+//   char* dst = str;
+//   int last_was_space = 1;    // Start as if we had a space (prevents leading space)
+//   int last_was_newline = 0;
 
-        if (isspace(c) || c == 0xA0) {
-          if (*current_len > 0 && (*buffer)[*current_len - 1] != ' ' && (*buffer)[*current_len - 1] != '\n') {
-            (*buffer)[(*current_len)++] = ' ';
-          }
+//   while (*src) {
+//     if (*src == '\n') {
+//       if (!last_was_newline) {
+//         *dst++ = '\n';
+//         last_was_newline = 1;
+//       }
+//       last_was_space = 1;
+//       src++;
+//     }
+//     else if (isspace(*src)) {
+//       if (!last_was_space && !last_was_newline) {
+//         *dst++ = ' ';
+//         last_was_space = 1;
+//       }
+//       src++;
+//     }
+//     else {
+//       *dst++ = *src++;
+//       last_was_space = 0;
+//       last_was_newline = 0;
+//     }
+//   }
+
+//   while (dst > str && (dst[-1] == ' ' || dst[-1] == '\n'))
+//     dst--;
+
+//   *dst = '\0';
+// }
+
+
+#include <ncurses.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+/**
+ * Helper function to decode HTML entities
+ */
+void decode_html_entities(char* str) {
+    char* dst = str;
+    char* src = str;
+    
+    while (*src) {
+        if (*src == '&') {
+            if (strncmp(src, "&lt;", 4) == 0) {
+                *dst++ = '<';
+                src += 4;
+            } else if (strncmp(src, "&gt;", 4) == 0) {
+                *dst++ = '>';
+                src += 4;
+            } else if (strncmp(src, "&amp;", 5) == 0) {
+                *dst++ = '&';
+                src += 5;
+            } else if (strncmp(src, "&quot;", 6) == 0) {
+                *dst++ = '"';
+                src += 6;
+            } else if (strncmp(src, "&apos;", 6) == 0) {
+                *dst++ = '\'';
+                src += 6;
+            } else if (strncmp(src, "&#39;", 5) == 0) {
+                *dst++ = '\'';
+                src += 5;
+            } else if (strncmp(src, "&nbsp;", 6) == 0) {
+                *dst++ = ' ';
+                src += 6;
+            } else {
+                *dst++ = *src++;
+            }
         } else {
-          (*buffer)[(*current_len)++] = c;
+            *dst++ = *src++;
         }
-      }
-      (*buffer)[*current_len] = '\0';
     }
-  }
-
-  if (tag_id == MyHTML_TAG_P || tag_id == MyHTML_TAG_BR) {
-    if (*current_len > 0 && (*buffer)[*current_len - 1] != '\n') {
-      (*buffer)[(*current_len)++] = '\n';
-    }
-  }
-
-  myhtml_tree_node_t* child = myhtml_node_child(node);
-  while (child) {
-    extract_text_recursive(child, buffer, buffer_size, current_len);
-    child = myhtml_node_next(child);
-  }
+    *dst = '\0';
 }
 
-static void normalize_whitespace(char* str) {
-  char* src = str;
-  char* dst = str;
-  int last_was_space = 1;
-  int last_was_newline = 0;
-
-  while (*src) {
-    if (*src == '\n') {
-      if (!last_was_newline) {
-        *dst++ = '\n';
-        last_was_newline = 1;
-      }
-      last_was_space = 1;
-      src++;
+/**
+ * Helper function to add paragraph spacing after sentence-ending punctuation
+ */
+void add_paragraph_breaks(char* str) {
+    char* result = malloc(strlen(str) * 2 + 1); // Extra space for added breaks
+    char* dst = result;
+    char* src = str;
+    
+    while (*src) {
+        *dst++ = *src;
+        
+        // Check for sentence endings followed by capital letter
+        if ((*src == '.' || *src == '!' || *src == '?') && 
+            *(src + 1) != '\0' && 
+            *(src + 1) != ' ' &&
+            isupper(*(src + 1))) {
+            // Add double space for paragraph break
+            *dst++ = ' ';
+            *dst++ = ' ';
+        }
+        
+        src++;
     }
-    else if (isspace(*src)) {
-      if (!last_was_space && !last_was_newline) {
-        *dst++ = ' ';
-        last_was_space = 1;
-      }
-      src++;
-    }
-    else {
-      *dst++ = *src++;
-      last_was_space = 0;
-      last_was_newline = 0;
-    }
-  }
-
-  while (dst > str && (dst[-1] == ' ' || dst[-1] == '\n'))
-    dst--;
-
-  *dst = '\0';
+    
+    *dst = '\0';
+    strcpy(str, result);
+    free(result);
 }
 
+/**
+ * Helper function to normalize whitespace
+ */
+void normalize_whitespace(char* str) {
+    char* dst = str;
+    char* src = str;
+    int space_count = 0;
+    int last_was_space = 1; // Trim leading spaces
+    
+    while (*src) {
+        if (isspace(*src)) {
+            space_count++;
+            src++;
+            
+            // If we've accumulated spaces, add appropriate spacing
+            if (!last_was_space && *src && !isspace(*src)) {
+                if (space_count >= 2) {
+                    // Multiple spaces = paragraph break
+                    *dst++ = '\n';
+                    *dst++ = '\n';
+                } else {
+                    // Single space
+                    *dst++ = ' ';
+                }
+                last_was_space = 1;
+                space_count = 0;
+            }
+        } else {
+            *dst++ = *src++;
+            last_was_space = 0;
+            space_count = 0;
+        }
+    }
+    
+    // Trim trailing space/newline
+    while (dst > str && (*(dst - 1) == ' ' || *(dst - 1) == '\n')) {
+        dst--;
+    }
+    
+    *dst = '\0';
+}
+
+/**
+ * Helper function to wrap text to specified width, respecting paragraphs
+ */
+char** wrap_text(const char* text, int width, int* line_count) {
+    int capacity = 200;
+    char** lines = malloc(capacity * sizeof(char*));
+    *line_count = 0;
+    
+    const char* ptr = text;
+    
+    while (*ptr) {
+        // Skip leading whitespace
+        while (*ptr && (*ptr == ' ' || *ptr == '\t')) ptr++;
+        if (!*ptr) break;
+        
+        // Check for paragraph break
+        if (*ptr == '\n') {
+            // Add empty line for paragraph
+            if (capacity <= *line_count) {
+                capacity *= 2;
+                lines = realloc(lines, capacity * sizeof(char*));
+            }
+            lines[(*line_count)++] = strdup("");
+            ptr++;
+            while (*ptr == '\n') ptr++; // Skip multiple newlines
+            continue;
+        }
+        
+        // Allocate line buffer
+        char* line = malloc(width + 1);
+        int line_len = 0;
+        
+        // Build line word by word
+        while (*ptr && *ptr != '\n') {
+            // Find next word
+            const char* word_start = ptr;
+            int word_len = 0;
+            
+            while (*ptr && !isspace(*ptr)) {
+                ptr++;
+                word_len++;
+            }
+            
+            if (word_len == 0) break;
+            
+            // Check if word fits on current line
+            if (line_len == 0) {
+                // First word on line
+                if (word_len > width) {
+                    // Word too long, break it
+                    strncpy(line, word_start, width);
+                    line[width] = '\0';
+                    line_len = width;
+                    ptr = word_start + width;
+                } else {
+                    strncpy(line, word_start, word_len);
+                    line[word_len] = '\0';
+                    line_len = word_len;
+                }
+            } else if (line_len + 1 + word_len <= width) {
+                // Word fits with space
+                line[line_len++] = ' ';
+                strncpy(line + line_len, word_start, word_len);
+                line_len += word_len;
+                line[line_len] = '\0';
+            } else {
+                // Word doesn't fit, break line here
+                ptr = word_start;
+                break;
+            }
+            
+            // Skip whitespace after word (but not newlines)
+            while (*ptr && *ptr == ' ') ptr++;
+        }
+        
+        // Add line to array
+        if (capacity <= *line_count) {
+            capacity *= 2;
+            lines = realloc(lines, capacity * sizeof(char*));
+        }
+        lines[(*line_count)++] = line;
+    }
+    
+    return lines;
+}
+
+/**
+ * Parses HTML and displays chapter content with word-wrapping and scrolling.
+ */
 int display_chapter_content(const char* novel_title, int chapter_num, const char* html) {
-  if (!html) return 1;
-
-  myhtml_t* myhtml = myhtml_create();
-  myhtml_init(myhtml, MyHTML_OPTIONS_DEFAULT, 1, 0);
-  myhtml_tree_t* tree = myhtml_tree_create();
-  myhtml_tree_init(tree, myhtml);
-  myhtml_parse(tree, MyENCODING_UTF_8, html, strlen(html));
-
-  myhtml_collection_t* divs = myhtml_get_nodes_by_tag_id(tree, NULL, MyHTML_TAG_DIV, NULL);
-
-  char* chapter_text = malloc(32768);
-  if (!chapter_text) {
-    if (divs) myhtml_collection_destroy(divs);
-    myhtml_tree_destroy(tree);
-    myhtml_destroy(myhtml);
-    return 1;
-  }
-  chapter_text[0] = '\0';
-  size_t buffer_size = 32768;
-  size_t current_len = 0;
-
-  int found_content = 0;
-
-  if (divs && divs->list) {
-    for (size_t i = 0; i < divs->length; i++) {
-      myhtml_tree_node_t* node = divs->list[i];
-      myhtml_tree_attr_t* attr = myhtml_attribute_by_key(node, "id", 2);
-
-      if (attr) {
-        const char* id_val = myhtml_attribute_value(attr, NULL);
-        if (id_val && strcmp(id_val, "chapterText") == 0) {
-          found_content = 1;
-
-          size_t para_start = current_len;
-          extract_text_recursive(node, &chapter_text, &buffer_size, &current_len);
-
-          normalize_whitespace(chapter_text + para_start);
-          current_len = strlen(chapter_text);
-
-          if (current_len + 3 < buffer_size) {
-            strcat(chapter_text, "\n\n");
-            current_len += 2;
-          }
-        }
-      }
+    if (!novel_title || !html) {
+        return 1;
     }
-  }
-
-  if (divs) myhtml_collection_destroy(divs);
-  myhtml_tree_destroy(tree);
-  myhtml_destroy(myhtml);
-
-  if (!found_content || strlen(chapter_text) < 10) {
-    mvprintw(20, 0, "❌ No chapter content found!");
-    refresh();
-    getch();
-    free(chapter_text);
-    return 1;
-  }
-
-  int offset = 0;
-  int ch = 0;
-
-  while (1) {
+    
+    // Find "chapterText" in HTML
+    const char* chapter_start = strstr(html, "chapterText");
+    if (!chapter_start) {
+        return 1;
+    }
+    
+    // Extract text content between tags
+    size_t html_len = strlen(html);
+    char* content = malloc(html_len * 2 + 1); // Extra space for paragraph breaks
+    int content_len = 0;
+    const char* ptr = chapter_start;
+    int in_tag = 0;
+    
+    while (*ptr) {
+        if (*ptr == '<') {
+            in_tag = 1;
+        } else if (*ptr == '>') {
+            in_tag = 0;
+        } else if (!in_tag) {
+            // Copy text content
+            content[content_len++] = *ptr;
+        }
+        ptr++;
+    }
+    content[content_len] = '\0';
+    
+    // Decode HTML entities
+    decode_html_entities(content);
+    
+    // Add paragraph breaks where sentences run together
+    add_paragraph_breaks(content);
+    
+    // Normalize whitespace and create paragraph breaks
+    normalize_whitespace(content);
+    
+    // Get terminal dimensions
     int max_y, max_x;
     getmaxyx(stdscr, max_y, max_x);
-    clear();
-
-    attron(COLOR_PAIR(2) | A_BOLD);
-    mvprintw(0, 2, "📖 %s - Chapter %d", novel_title, chapter_num);
-    attroff(COLOR_PAIR(2) | A_BOLD);
-
-    attron(A_DIM);
-    mvhline(1, 0, ACS_HLINE, max_x);
-    attroff(A_DIM);
-
-    int line = 0;
-    int col = 4;
-    char *p = chapter_text;
-    int visible_start = 2;
-    int visible_end = max_y - 2;
-    int margin_right = 4;
-
-    while (*p) {
-      if (col == 4) {
-        while (*p == ' ') p++;
-      }
-
-      if (!*p) break;
-
-      if (*p == '\n') {
-        line++;
-        col = 4;
-        p++;
-        continue;
-      }
-
-      char *word_start = p;
-      while (*p && *p != ' ' && *p != '\n') p++;
-      int word_len = p - word_start;
-
-      if (word_len == 0) {
-        if (*p == ' ') p++;
-        continue;
-      }
-
-      if (col > 4 && col + word_len >= max_x - margin_right) {
-        line++;
-        col = 4;
-      }
-
-      if (line >= offset && line < offset + (visible_end - visible_start)) {
-        int screen_y = visible_start + (line - offset);
-        mvprintw(screen_y, col, "%.*s", word_len, word_start);
-      }
-
-      col += word_len;
-
-      if (*p == ' ') {
-        if (col < max_x - margin_right) {
-          if (line >= offset && line < offset + (visible_end - visible_start)) {
-            mvaddch(visible_start + (line - offset), col, ' ');
-          }
-          col++;
+    
+    // Reserve lines for header and footer
+    int header_lines = 2;
+    int footer_lines = 1;
+    int content_height = max_y - header_lines - footer_lines;
+    int content_width = max_x - 4; // Leave margins
+    
+    if (content_width < 20) content_width = 20; // Minimum width
+    
+    // Wrap text
+    int line_count;
+    char** lines = wrap_text(content, content_width, &line_count);
+    
+    // Scrolling display
+    int scroll_pos = 0;
+    int ch;
+    
+    while (1) {
+        clear();
+        
+        // Display header
+        attron(A_BOLD);
+        mvprintw(0, 0, "%s - Chapter %d", novel_title, chapter_num);
+        attroff(A_BOLD);
+        mvprintw(1, 0, "---");
+        
+        // Display content
+        for (int i = 0; i < content_height && (scroll_pos + i) < line_count; i++) {
+            mvprintw(header_lines + i, 2, "%s", lines[scroll_pos + i]);
         }
-        p++;
-      }
+        
+        // Display footer
+        mvprintw(max_y - 1, 0, "↑/↓: Scroll | PgUp/PgDn: Page | Home/End | q: Quit | %d/%d", 
+                 scroll_pos + 1, line_count);
+        
+        refresh();
+        
+        // Handle input
+        ch = getch();
+        
+        if (ch == 'q' || ch == 'Q' || ch == 27) { // q or ESC
+            break;
+        } else if (ch == KEY_UP && scroll_pos > 0) {
+            scroll_pos--;
+        } else if (ch == KEY_DOWN && scroll_pos + content_height < line_count) {
+            scroll_pos++;
+        } else if (ch == KEY_PPAGE) { // Page Up
+            scroll_pos -= content_height;
+            if (scroll_pos < 0) scroll_pos = 0;
+        } else if (ch == KEY_NPAGE) { // Page Down
+            scroll_pos += content_height;
+            if (scroll_pos + content_height > line_count) {
+                scroll_pos = line_count - content_height;
+            }
+            if (scroll_pos < 0) scroll_pos = 0;
+        } else if (ch == KEY_HOME) {
+            scroll_pos = 0;
+        } else if (ch == KEY_END) {
+            scroll_pos = line_count - content_height;
+            if (scroll_pos < 0) scroll_pos = 0;
+        }
     }
-
-    int total_lines = line;
-
-    attron(COLOR_PAIR(4) | A_DIM);
-    mvprintw(max_y - 1, 2, "← Prev Page   q Back   ↑/↓ Scroll   Line %d/%d", offset + 1, total_lines > 0 ? total_lines : 1);
-    attroff(COLOR_PAIR(4) | A_DIM);
-
-    refresh();
-
-    ch = getch();
-    if (ch == 'q' || ch == 'Q' || ch == KEY_LEFT) break;
-
-    if (ch == KEY_UP && offset > 0) offset--;
-    if (ch == KEY_DOWN && offset < total_lines - (visible_end - visible_start)) offset++;
-    if (ch == KEY_PPAGE) {
-      offset -= (visible_end - visible_start);
-      if (offset < 0) offset = 0;
+    
+    // Cleanup
+    for (int i = 0; i < line_count; i++) {
+        free(lines[i]);
     }
-    if (ch == KEY_NPAGE) {
-      offset += (visible_end - visible_start);
-      if (offset > total_lines - (visible_end - visible_start)) {
-        offset = total_lines - (visible_end - visible_start);
-        if (offset < 0) offset = 0;
-      }
-    }
-  }
-
-  free(chapter_text);
-  return 0;
+    free(lines);
+    free(content);
+    
+    return 0;
 }
