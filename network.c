@@ -31,13 +31,21 @@ FILE* download_book(cJSON* results, int choice, char *options[])
   cJSON* plain = cJSON_GetObjectItemCaseSensitive(formats, "text/plain; charset=utf-8");
 
   if (!plain) {
-    printf("Plain text not available\n");
+    // Note: Since we are in ncurses mode, printf might mess up the UI. 
+    // Consider a mvprintw here instead.
     curl_easy_cleanup(handle);
     return NULL;
   }
+
   char* download_url = plain->valuestring;
-  char filedir[512];
-  snprintf(filedir, sizeof(filedir), "./library/%s.txt", options[choice]);
+  
+  // FIX STARTS HERE
+  char lib_path[512];
+  get_user_path(lib_path, "library", sizeof(lib_path)); // This creates the dir if missing
+
+  char filedir[1024];
+  snprintf(filedir, sizeof(filedir), "%s/%s.txt", lib_path, options[choice]);
+  // FIX ENDS HERE
 
   FILE* download = fopen(filedir, "wb");
   if (!download) {
@@ -52,8 +60,6 @@ FILE* download_book(cJSON* results, int choice, char *options[])
   CURLcode result = curl_easy_perform(handle);
 
   if (result != CURLE_OK) {
-    fprintf(stderr, "Download failed: %s\n",
-            curl_easy_strerror(result));
     fclose(download);
     curl_easy_cleanup(handle);
     return NULL;
