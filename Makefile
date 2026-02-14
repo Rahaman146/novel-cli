@@ -14,7 +14,7 @@ SRC = main.c ui.c chapter_controller.c controller.c network.c cache.c library.c 
 OBJ = $(SRC:.c=.o)
 
 # Output binary
-TARGET = novel
+TARGET = novel-cli
 
 # Default target
 all: $(TARGET)
