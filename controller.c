@@ -10,7 +10,37 @@
 #include <curl/curl.h>
 #include <cjson/cJSON.h>
 #include <ncurses.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
+void get_user_path(char *dest, const char *subfolder, size_t size) {
+  const char *home = getenv("HOME");
+  if (!home) home = "."; // Fallback to current dir
+
+  snprintf(dest, size, "%s/.local/share/novel-cli/%s", home, subfolder);
+
+  // Create the directory if it doesn't exist
+  mkdir_p(dest); 
+}
+
+// Helper to create nested directories (like mkdir -p)
+void mkdir_p(const char *path) {
+  char tmp[512];
+  char *p = NULL;
+  size_t len;
+
+  snprintf(tmp, sizeof(tmp), "%s", path);
+  len = strlen(tmp);
+  if (tmp[len - 1] == '/') tmp[len - 1] = 0;
+  for (p = tmp + 1; *p; p++) {
+    if (*p == '/') {
+      *p = 0;
+      mkdir(tmp, 0755);
+      *p = '/';
+    }
+  }
+  mkdir(tmp, 0755);
+}
 
 FILE* select_main_menu(int choice, char* main_options[], int size_main_options) {
   (void) size_main_options;
@@ -56,7 +86,11 @@ FILE* select_main_menu(int choice, char* main_options[], int size_main_options) 
 
       json = cJSON_Parse(chunk.data);
       free(chunk.data);
-      if (json) save_to_cache(json, main_options, choice);
+
+      if (json) {
+        char *name_ptr[1] = { book_name };
+        save_to_cache(json, name_ptr, 0); 
+      }
       delete_old_cache();
       curl_free(encoded);
     }
