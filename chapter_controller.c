@@ -169,66 +169,6 @@ int show_chapter_browser(char chapters[3500][128], char chapter_titles[3500][128
  * @param output Buffer to store extracted text
  * @param max_size Maximum size of output buffer
  */
-static void extract_chapter_text_divs(const char* html, char* output, size_t max_size) {
-  const char* p = html;
-  char* out = output;
-  size_t remaining = max_size - 1;
-  int para_count = 0;
-  
-
-  
-  // Search for all id="chapterText" occurrences
-  while ((p = strstr(p, "id=\"chapterText\"")) != NULL) {
-    para_count++;
-    
-    // Move past id="chapterText" to find the closing '>'
-    p += strlen("id=\"chapterText\"");
-    while (*p && *p != '>') p++;
-    if (!*p) break;
-    p++; // Skip the '>'
-    
-    // Now extract text until we hit '<' (which starts the closing tag)
-    while (*p && *p != '<' && remaining > 2) {
-      unsigned char c = (unsigned char)*p;
-      
-      // Copy character as-is, but handle special cases
-      if (c == 0xC2 && (unsigned char)*(p+1) == 0xA0) {
-        // Non-breaking space (UTF-8: 0xC2 0xA0)
-        *out++ = ' ';
-        remaining--;
-        p += 2;
-      } else if (isspace(c)) {
-        // Regular whitespace
-        *out++ = ' ';
-        remaining--;
-        p++;
-      } else {
-        // Regular character
-        *out++ = c;
-        remaining--;
-        p++;
-      }
-    }
-    
-    // Add paragraph break (two newlines)
-    if (remaining > 2) {
-      *out++ = '\n';
-      *out++ = '\n';
-      remaining -= 2;
-    }
-    
-
-  }
-  
-  // Remove trailing whitespace
-  while (out > output && (out[-1] == ' ' || out[-1] == '\n')) {
-    out--;
-  }
-  
-  *out = '\0';
-  
-
-}
 
 // /**
 //  * Normalizes whitespace in a string by collapsing multiple spaces/newlines.
