@@ -1,0 +1,13 @@
+# Object files
+*.o
+*.obj
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Debug / temporary files
+*.log
+*.dSYM/
+*.swp
