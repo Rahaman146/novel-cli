@@ -484,10 +484,15 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
     }
     
     // Find "chapterText" in HTML
-    const char* chapter_start = strstr(html, "chapterText");
+    const char* chapter_start = strstr(html, "id=\"chapterText\"");
     if (!chapter_start) {
         return 1;
     }
+    
+    // Skip past the id="chapterText" attribute and find the closing '>'
+    chapter_start += strlen("id=\"chapterText\"");
+    while (*chapter_start && *chapter_start != '>') chapter_start++;
+    if (*chapter_start == '>') chapter_start++; // Skip the '>'
     
     // Extract text content between tags, adding breaks after block elements
     size_t html_len = strlen(html);
