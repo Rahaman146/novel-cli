@@ -277,6 +277,7 @@ static void extract_chapter_text_divs(const char* html, char* output, size_t max
 
 #include <ncurses.h>
 #include <string.h>
+#include <strings.h>  // Add this for strncasecmp
 #include <stdlib.h>
 #include <ctype.h>
 
@@ -321,32 +322,36 @@ void decode_html_entities(char* str) {
 }
 
 /**
- * Helper function to add paragraph spacing after sentence-ending punctuation
+ * Check if a tag is a block-level element
  */
-void add_paragraph_breaks(char* str) {
-    char* result = malloc(strlen(str) * 2 + 1); // Extra space for added breaks
-    char* dst = result;
-    char* src = str;
+int is_block_tag(const char* tag_content) {
+    const char* block_tags[] = {
+        "div", "p", "br", "h1", "h2", "h3", "h4", "h5", "h6",
+        "ul", "ol", "li", "blockquote", "hr", "pre", "table",
+        "tr", "td", "th", "section", "article", "header", "footer"
+    };
     
-    while (*src) {
-        *dst++ = *src;
-        
-        // Check for sentence endings followed by capital letter
-        if ((*src == '.' || *src == '!' || *src == '?') && 
-            *(src + 1) != '\0' && 
-            *(src + 1) != ' ' &&
-            isupper(*(src + 1))) {
-            // Add double space for paragraph break
-            *dst++ = ' ';
-            *dst++ = ' ';
+    // Extract tag name (skip / for closing tags)
+    const char* tag_name = tag_content;
+    if (*tag_name == '/') tag_name++;
+    
+    // Skip whitespace
+    while (*tag_name && isspace(*tag_name)) tag_name++;
+    
+    // Check against block tags
+    size_t num_tags = sizeof(block_tags) / sizeof(block_tags[0]);
+    for (size_t i = 0; i < num_tags; i++) {
+        size_t len = strlen(block_tags[i]);
+        if (strncasecmp(tag_name, block_tags[i], len) == 0) {
+            // Make sure it's followed by space, > or end
+            char next = tag_name[len];
+            if (next == '\0' || next == '>' || isspace(next)) {
+                return 1;
+            }
         }
-        
-        src++;
     }
     
-    *dst = '\0';
-    strcpy(str, result);
-    free(result);
+    return 0;
 }
 
 /**
@@ -355,31 +360,25 @@ void add_paragraph_breaks(char* str) {
 void normalize_whitespace(char* str) {
     char* dst = str;
     char* src = str;
-    int space_count = 0;
     int last_was_space = 1; // Trim leading spaces
     
     while (*src) {
-        if (isspace(*src)) {
-            space_count++;
-            src++;
-            
-            // If we've accumulated spaces, add appropriate spacing
-            if (!last_was_space && *src && !isspace(*src)) {
-                if (space_count >= 2) {
-                    // Multiple spaces = paragraph break
-                    *dst++ = '\n';
-                    *dst++ = '\n';
-                } else {
-                    // Single space
-                    *dst++ = ' ';
-                }
+        if (*src == '\n') {
+            if (!last_was_space) {
+                // Preserve paragraph breaks
+                *dst++ = '\n';
                 last_was_space = 1;
-                space_count = 0;
+            }
+            src++;
+        } else if (isspace(*src)) {
+            src++;
+            if (!last_was_space && *src && !isspace(*src) && *src != '\n') {
+                *dst++ = ' ';
+                last_was_space = 1;
             }
         } else {
             *dst++ = *src++;
             last_was_space = 0;
-            space_count = 0;
         }
     }
     
@@ -402,8 +401,8 @@ char** wrap_text(const char* text, int width, int* line_count) {
     const char* ptr = text;
     
     while (*ptr) {
-        // Skip leading whitespace
-        while (*ptr && (*ptr == ' ' || *ptr == '\t')) ptr++;
+        // Skip leading whitespace (except newlines)
+        while (*ptr && *ptr == ' ') ptr++;
         if (!*ptr) break;
         
         // Check for paragraph break
@@ -415,12 +414,11 @@ char** wrap_text(const char* text, int width, int* line_count) {
             }
             lines[(*line_count)++] = strdup("");
             ptr++;
-            while (*ptr == '\n') ptr++; // Skip multiple newlines
             continue;
         }
         
         // Allocate line buffer
-        char* line = malloc(width + 1);
+        char* line = malloc((size_t)width + 1);
         int line_len = 0;
         
         // Build line word by word
@@ -441,19 +439,19 @@ char** wrap_text(const char* text, int width, int* line_count) {
                 // First word on line
                 if (word_len > width) {
                     // Word too long, break it
-                    strncpy(line, word_start, width);
+                    strncpy(line, word_start, (size_t)width);
                     line[width] = '\0';
                     line_len = width;
                     ptr = word_start + width;
                 } else {
-                    strncpy(line, word_start, word_len);
+                    strncpy(line, word_start, (size_t)word_len);
                     line[word_len] = '\0';
                     line_len = word_len;
                 }
             } else if (line_len + 1 + word_len <= width) {
                 // Word fits with space
                 line[line_len++] = ' ';
-                strncpy(line + line_len, word_start, word_len);
+                strncpy(line + line_len, word_start, (size_t)word_len);
                 line_len += word_len;
                 line[line_len] = '\0';
             } else {
@@ -491,19 +489,36 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
         return 1;
     }
     
-    // Extract text content between tags
+    // Extract text content between tags, adding breaks after block elements
     size_t html_len = strlen(html);
-    char* content = malloc(html_len * 2 + 1); // Extra space for paragraph breaks
-    int content_len = 0;
+    char* content = malloc(html_len * 2 + 1);
+    size_t content_len = 0;
     const char* ptr = chapter_start;
     int in_tag = 0;
+    char tag_buffer[100];
+    size_t tag_pos = 0;
     
     while (*ptr) {
         if (*ptr == '<') {
             in_tag = 1;
+            tag_pos = 0;
+            memset(tag_buffer, 0, sizeof(tag_buffer));
         } else if (*ptr == '>') {
             in_tag = 0;
-        } else if (!in_tag) {
+            
+            // Check if this was a block-level closing tag
+            if (tag_pos > 0 && is_block_tag(tag_buffer)) {
+                // Add a newline after block elements
+                if (content_len > 0 && content[content_len - 1] != '\n') {
+                    content[content_len++] = '\n';
+                }
+            }
+        } else if (in_tag) {
+            // Store tag content for analysis
+            if (tag_pos < sizeof(tag_buffer) - 1) {
+                tag_buffer[tag_pos++] = *ptr;
+            }
+        } else {
             // Copy text content
             content[content_len++] = *ptr;
         }
@@ -514,10 +529,7 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
     // Decode HTML entities
     decode_html_entities(content);
     
-    // Add paragraph breaks where sentences run together
-    add_paragraph_breaks(content);
-    
-    // Normalize whitespace and create paragraph breaks
+    // Normalize whitespace
     normalize_whitespace(content);
     
     // Get terminal dimensions
