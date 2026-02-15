@@ -271,7 +271,7 @@ void search_webnovel() {
       char novel_chapter_titles[3500][128] = {0};
 
       int total_chapters = fetch_novel_chapters(cached->slugs[action], novel_chapters, novel_chapter_titles);
-      show_chapter_browser(novel_chapters, novel_chapter_titles, total_chapters, cached->titles[action], cached->slugs[action]);
+      show_chapter_browser(novel_chapters, novel_chapter_titles, total_chapters, cached->titles[action], cached->slugs[action], 0);
     }
   }
 

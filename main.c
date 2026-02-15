@@ -38,7 +38,7 @@ int main() {
     bkgd(COLOR_PAIR(1)); 
   }
 
-  char *main_options[] = {"Search Book (Gutenberg)", "Open Library", "Search WebNovel", "Exit"};
+  char *main_options[] = {"Search Book (Gutenberg)", "Open Library", "Search WebNovel", "History", "Exit"};
   int size_main_options = sizeof(main_options) / sizeof(char*);
 
   while (1) {
@@ -47,12 +47,7 @@ int main() {
       endwin();
       return 0;
     }
-    FILE* cached_book = select_main_menu(choice, main_options, size_main_options);
-
-    if (cached_book) {
-      display_book(cached_book);
-      fclose(cached_book);
-    }
+    select_main_menu(choice, main_options, size_main_options);
   }
 
   endwin();

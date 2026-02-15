@@ -4,6 +4,7 @@
 #include "cache.h"
 #include "library.h"
 #include "webnovel.h"
+#include "history.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -135,7 +136,7 @@ FILE* select_main_menu(int choice, char* main_options[], int size_main_options) 
       }
 
       if (cached_book) {
-        display_book(cached_book);
+        display_book(cached_book, book_options[book_choice]);
         fclose(cached_book);
       }
     }
@@ -153,6 +154,10 @@ FILE* select_main_menu(int choice, char* main_options[], int size_main_options) 
     return NULL;
   }
   if(choice == 3){ 
+    show_history_menu();
+    return NULL;
+  }
+  if(choice == 4){ 
     endwin(); 
     exit(0); 
   }

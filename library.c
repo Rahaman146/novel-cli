@@ -60,7 +60,7 @@ void open_library() {
 
         FILE *fp = fopen(path, "r");
         if (fp) {
-            display_book(fp);
+            display_book(fp, books[choice]);
             fclose(fp);
         }
     }

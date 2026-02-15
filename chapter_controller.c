@@ -2,6 +2,7 @@
 
 #include "network.h"
 #include "chapter_controller.h"
+#include "history.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -87,9 +88,11 @@ void display_chapter_list(char chapters[3500][128], int total, int offset, int h
  * @param novel_slug Novel slug (unused)
  * @return -1 when user exits back to previous screen
  */
-int show_chapter_browser(char chapters[3500][128], char chapter_titles[3500][128], int total, const char* novel_title, const char* novel_slug __attribute__((unused))) {
-  int offset = 0;      // Scroll position
-  int highlight = 0;   // Selected chapter
+int show_chapter_browser(char chapters[3500][128], char chapter_titles[3500][128], int total, const char* novel_title, const char* novel_slug __attribute__((unused)), int start_idx) {
+  int highlight = start_idx; // Initialize to the saved chapter
+  int offset = start_idx - 5; // Center the view slightly
+  if (offset < 0) offset = 0;
+  if (highlight >= total) highlight = total - 1;
 
   // Main navigation loop
   while (1) {
@@ -145,6 +148,7 @@ int show_chapter_browser(char chapters[3500][128], char chapter_titles[3500][128
           if (chapter_html && strlen(chapter_html) > 1000) {
             // Get navigation intent from the reader window
             nav_status = display_chapter_content(novel_title, highlight + 1, chapter_html);
+            save_to_history(novel_title, chapter_titles[highlight], chapters[highlight], novel_slug, highlight + 1);
             free(chapter_html);
 
             if (nav_status == 1 && highlight < total - 1) { 

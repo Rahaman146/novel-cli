@@ -24,7 +24,8 @@ int show_chapter_browser(
     char chapter_titles[3500][128], 
     int total, 
     const char* novel_title, 
-    const char* novel_slug
+    const char* novel_slug,
+    int start_idx
     );
 
 int display_chapter_content(const char* novel_title, int chapter_num, const char* html);

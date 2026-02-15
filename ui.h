@@ -19,6 +19,6 @@ int display_webnovel_list(
 
 int display_menu(char *options[], int n_options);
 
-int display_book(FILE *fp);
+int display_book(FILE *fp, const char* book_title);
 
 #endif

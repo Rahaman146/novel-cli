@@ -13,7 +13,7 @@ BINDIR = $(PREFIX)/bin
 MANDIR = $(PREFIX)/share/man/man1
 
 # Source files
-SRC = main.c ui.c chapter_controller.c controller.c network.c cache.c library.c webnovel.c
+SRC = main.c ui.c chapter_controller.c controller.c network.c cache.c library.c webnovel.c history.c
 
 # Object files
 OBJ = $(SRC:.c=.o)

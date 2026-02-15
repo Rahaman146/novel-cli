@@ -224,7 +224,7 @@ int display_webnovel_list(
   return choice;
 }
 
-int display_book(FILE* fp) {
+int display_book(FILE* fp, const char* book_title) {
   if (!fp) {
     perror("File open failed");
     return -2;
@@ -251,11 +251,16 @@ int display_book(FILE* fp) {
 
   int offset = 0;
 
-  FILE *progress = fopen(".progress", "r");
+  char progress_file[1024];
+  // Create a hidden file based on the title (e.g., .progress_Moby_Dick)
+  snprintf(progress_file, sizeof(progress_file), ".progress_%s", book_title);
+  // Use progress_file instead of the hardcoded ".progress"
+  FILE *progress = fopen(progress_file, "r");
   if (progress) {
     fscanf(progress, "%d", &offset);
     fclose(progress);
   }
+
   int ch;
 
   while (1) {
@@ -294,7 +299,7 @@ int display_book(FILE* fp) {
     else if (ch == KEY_PPAGE)
       offset -= rows;
     else if (ch == 'q' || ch == KEY_LEFT){
-      progress = fopen(".progress", "w");
+      progress = fopen(progress_file, "w");
       if (progress) {
         fprintf(progress, "%d\n", offset);
         fclose(progress);
@@ -315,7 +320,7 @@ int display_book(FILE* fp) {
       offset = max_offset;
   }
 
-  progress = fopen(".progress", "w");
+  progress = fopen(progress_file, "w");
   if (progress) {
     fprintf(progress, "%d\n", offset);
     fclose(progress);
