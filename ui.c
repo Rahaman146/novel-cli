@@ -2,12 +2,16 @@
 #define _GNU_SOURCE
 
 #include "ui.h"
+#include "controller.h"
+
 #include <stdlib.h>
 #include <string.h>
 #include <ncurses.h>
 #include <locale.h>
 #include <ctype.h>
 #include <math.h>
+#include <dirent.h>
+#include <sys/stat.h>
 
 #define MAX_LINE 1024
 #define ITEMS_PER_PAGE 12
@@ -251,14 +255,17 @@ int display_book(FILE* fp, const char* book_title) {
 
   int offset = 0;
 
-  char progress_file[1024];
-  // Create a hidden file based on the title (e.g., .progress_Moby_Dick)
-  snprintf(progress_file, sizeof(progress_file), ".progress_%s", book_title);
+  char progress_dir[512];
+  get_user_path(progress_dir, "progress", sizeof(progress_dir));
+
+  char progress_path[1024];
+  snprintf(progress_path, sizeof(progress_path), "%s/%s.txt", progress_dir, book_title);
+
+  FILE* progress_file = fopen(progress_path, "r");
   // Use progress_file instead of the hardcoded ".progress"
-  FILE *progress = fopen(progress_file, "r");
-  if (progress) {
-    fscanf(progress, "%d", &offset);
-    fclose(progress);
+  if (progress_file) {
+    fscanf(progress_file, "%d", &offset);
+    fclose(progress_file);
   }
 
   int ch;
@@ -299,10 +306,10 @@ int display_book(FILE* fp, const char* book_title) {
     else if (ch == KEY_PPAGE)
       offset -= rows;
     else if (ch == 'q' || ch == KEY_LEFT){
-      progress = fopen(progress_file, "w");
-      if (progress) {
-        fprintf(progress, "%d\n", offset);
-        fclose(progress);
+      progress_file = fopen(progress_path, "w");
+      if (progress_file) {
+        fprintf(progress_file, "%d\n", offset);
+        fclose(progress_file);
       }
 
       for (int i = 0; i < count; i++)
@@ -320,10 +327,10 @@ int display_book(FILE* fp, const char* book_title) {
       offset = max_offset;
   }
 
-  progress = fopen(progress_file, "w");
-  if (progress) {
-    fprintf(progress, "%d\n", offset);
-    fclose(progress);
+  progress_file = fopen(progress_path, "w");
+  if (progress_file) {
+    fprintf(progress_file, "%d\n", offset);
+    fclose(progress_file);
   }
 
   for (int i = 0; i < count; i++)
