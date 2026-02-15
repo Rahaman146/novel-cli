@@ -321,7 +321,7 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
 
     // Display header
     attron(COLOR_PAIR(4));
-    mvprintw(0, 0, "📖 %s - Chapter %d                    Line %d/%d", novel_title, chapter_num, scroll + 1, n_lines);
+    mvprintw(0, 0, "📖 %s - Chapter %d               Line %d/%d", novel_title, chapter_num, scroll + 1, n_lines);
     attroff(COLOR_PAIR(4));
 
     attron(COLOR_PAIR(5) | A_DIM);
