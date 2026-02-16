@@ -325,7 +325,7 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
 
     // Display header
     attron(COLOR_PAIR(4));
-    mvprintw(0, 0, "📖 %s - Chapter %d               Line %d/%d", novel_title, chapter_num, scroll + 1, n_lines);
+    mvprintw(0, 0, "📖 %s - Chapter %d               Line %d/%d", novel_title, chapter_num, scroll + 1, n_lines - 31);
     attroff(COLOR_PAIR(4));
 
     attron(COLOR_PAIR(5) | A_DIM);
@@ -357,8 +357,8 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
     else if (ch == KEY_RIGHT) return 1;
     else if (ch == KEY_UP && scroll > 0) scroll--;
     else if (ch == KEY_DOWN && scroll < n_lines - content_h) scroll++;
-    else if (ch == KEY_PPAGE) scroll = (scroll - content_h > 0) ? scroll - content_h : 0;
-    else if (ch == KEY_NPAGE) scroll = (scroll + content_h < n_lines - content_h) ? scroll + content_h : n_lines - content_h;
+    else if (ch == KEY_PPAGE) scroll = (scroll - content_h > 0) ? scroll - content_h + 2: 0;
+    else if (ch == KEY_NPAGE) scroll = (scroll + content_h < n_lines - content_h) ? scroll + content_h - 2: n_lines - content_h;
   }
 
   // Cleanup
