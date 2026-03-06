@@ -12,11 +12,16 @@ PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
 MANDIR = $(PREFIX)/share/man/man1
 
-# Source files
-SRC = main.c ui.c chapter_controller.c controller.c network.c cache.c library.c webnovel.c history.c
+# Source directory
+SRCDIR = src
 
+# Source files
+SRC = $(SRCDIR)/main.c $(SRCDIR)/ui.c $(SRCDIR)/chapter_controller.c $(SRCDIR)/controller.c $(SRCDIR)/network.c $(SRCDIR)/cache.c $(SRCDIR)/library.c $(SRCDIR)/webnovel.c $(SRCDIR)/history.c
+
+# Object directory
+OBJDIR = build
 # Object files
-OBJ = $(SRC:.c=.o)
+OBJ = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 # Output binary
 TARGET = novel-cli
@@ -29,7 +34,8 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET) $(LIBS)
 
 # Compile
-%.o: %.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Install to system

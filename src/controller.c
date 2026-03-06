@@ -45,6 +45,7 @@ void mkdir_p(const char *path) {
 
 FILE* select_main_menu(int choice, char* main_options[], int size_main_options) {
   (void) size_main_options;
+  (void) main_options;
   if(choice == 0){
     CURL* handle;
     CURLcode result;
