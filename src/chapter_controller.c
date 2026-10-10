@@ -1,4 +1,4 @@
-#define _POSIX_C_SOURCE 200809L
+#define _GNU_SOURCE
 
 #include "network.h"
 #include "chapter_controller.h"
@@ -187,36 +187,101 @@ int show_chapter_browser(char chapters[3500][128], char chapter_titles[3500][128
  */
 
 // Helper to decode basic HTML entities inline
+static void append_decoded_entity(const char **src, char **dst) {
+  long val = -1;
+  const char *start_p = *src;
+
+  if (strncmp(*src, "&#x", 3) == 0 || strncmp(*src, "&#X", 3) == 0) {
+    char *endptr;
+    val = strtol(*src + 3, &endptr, 16);
+    if (*endptr == ';') *src = endptr;
+    else val = -1;
+  } else if (strncmp(*src, "&#", 2) == 0 && isdigit((*src)[2])) {
+    char *endptr;
+    val = strtol(*src + 2, &endptr, 10);
+    if (*endptr == ';') *src = endptr;
+    else val = -1;
+  }
+
+  if (val > 0) {
+    if (val <= 0x7F) {
+      *(*dst)++ = (char)val;
+    } else if (val <= 0x7FF) {
+      *(*dst)++ = (char)(0xC0 | ((val >> 6) & 0x1F));
+      *(*dst)++ = (char)(0x80 | (val & 0x3F));
+    } else if (val <= 0xFFFF) {
+      *(*dst)++ = (char)(0xE0 | ((val >> 12) & 0x0F));
+      *(*dst)++ = (char)(0x80 | ((val >> 6) & 0x3F));
+      *(*dst)++ = (char)(0x80 | (val & 0x3F));
+    } else if (val <= 0x10FFFF) {
+      *(*dst)++ = (char)(0xF0 | ((val >> 18) & 0x07));
+      *(*dst)++ = (char)(0x80 | ((val >> 12) & 0x3F));
+      *(*dst)++ = (char)(0x80 | ((val >> 6) & 0x3F));
+      *(*dst)++ = (char)(0x80 | (val & 0x3F));
+    }
+    return;
+  }
+
+  if (strncmp(start_p, "&lt;", 4) == 0)    { *src += 3; *(*dst)++ = '<'; return; }
+  if (strncmp(start_p, "&gt;", 4) == 0)    { *src += 3; *(*dst)++ = '>'; return; }
+  if (strncmp(start_p, "&amp;", 5) == 0)   { *src += 4; *(*dst)++ = '&'; return; }
+  if (strncmp(start_p, "&quot;", 6) == 0)  { *src += 5; *(*dst)++ = '"'; return; }
+  if (strncmp(start_p, "&apos;", 6) == 0)  { *src += 5; *(*dst)++ = '\''; return; }
+  if (strncmp(start_p, "&nbsp;", 6) == 0)  { *src += 5; *(*dst)++ = ' '; return; }
+  if (strncmp(start_p, "&mdash;", 7) == 0) { *src += 6; *(*dst)++ = '-'; return; }
+  if (strncmp(start_p, "&ndash;", 7) == 0) { *src += 6; *(*dst)++ = '-'; return; }
+  if (strncmp(start_p, "&rsquo;", 7) == 0) { *src += 6; *(*dst)++ = '\''; return; }
+  if (strncmp(start_p, "&lsquo;", 7) == 0) { *src += 6; *(*dst)++ = '\''; return; }
+  if (strncmp(start_p, "&rdquo;", 7) == 0) { *src += 6; *(*dst)++ = '"'; return; }
+  if (strncmp(start_p, "&ldquo;", 7) == 0) { *src += 6; *(*dst)++ = '"'; return; }
+
+  *(*dst)++ = **src;
+}
+
 char decode_entity(const char **src) {
-    // 1. Handle Hexadecimal: &#x27;
-    if (strncmp(*src, "&#x", 3) == 0) {
-        char *endptr;
-        long val = strtol(*src + 3, &endptr, 16);
-        if (*endptr == ';') {
-            *src = endptr; // Move src pointer to the semicolon
-            return (char)val;
-        }
-    }
-    
-    // 2. Handle Decimal: &#39;
-    if (strncmp(*src, "&#", 2) == 0 && isdigit((*src)[2])) {
-        char *endptr;
-        long val = strtol(*src + 2, &endptr, 10);
-        if (*endptr == ';') {
-            *src = endptr;
-            return (char)val;
-        }
-    }
+  char buf[8] = {0};
+  char *ptr = buf;
+  append_decoded_entity(src, &ptr);
+  return buf[0];
+}
 
-    // 3. Handle Named Entities (Existing logic)
-    if (strncmp(*src, "&lt;", 4) == 0)    { *src += 3; return '<'; }
-    if (strncmp(*src, "&gt;", 4) == 0)    { *src += 3; return '>'; }
-    if (strncmp(*src, "&amp;", 5) == 0)   { *src += 4; return '&'; }
-    if (strncmp(*src, "&quot;", 6) == 0)  { *src += 5; return '"'; }
-    if (strncmp(*src, "&apos;", 6) == 0)  { *src += 5; return '\''; }
-    if (strncmp(*src, "&nbsp;", 6) == 0)  { *src += 5; return ' '; }
+static int is_boilerplate_line(const char *buf) {
+  if (!buf || !*buf) return 0;
 
-    return **src;
+  while (*buf && isspace(*buf)) buf++;
+  if (!*buf) return 0;
+
+  if (strcasestr(buf, "Read More With Pictures")) return 1;
+  if (strcasestr(buf, "20+ Chapters In Advance")) return 1;
+  if (strcasestr(buf, "patreon.com")) return 1;
+  if (strcasestr(buf, "patreon at")) return 1;
+  if (strcasestr(buf, "check out my patreon")) return 1;
+  if (strcasestr(buf, "support me than check out my patreon")) return 1;
+  if (strcasestr(buf, "If you Like this story")) return 1;
+  if (strcasestr(buf, "Check out my other stories")) return 1;
+  if (strcasestr(buf, "Solo leveling in Westeros")) return 1;
+  if (strcasestr(buf, "Use arrow keys")) return 1;
+  if (strcasestr(buf, "PREV/NEXT chapter")) return 1;
+  if (strcasestr(buf, "Please read these rules before posting")) return 1;
+  if (strcasestr(buf, "submitting a comment, you agree to follow them")) return 1;
+  if (strcasestr(buf, "Site administrators and editors may moderate")) return 1;
+  if (strcasestr(buf, "Update requests will not make chapters arrive faster")) return 1;
+  if (strcasestr(buf, "Do not flood the comment section")) return 1;
+  if (strcasestr(buf, "Violations may result in a warning")) return 1;
+  if (strcasestr(buf, "commenting privileges")) return 1;
+  if (strcasestr(buf, "Access to 3 More Chapters") || strcasestr(buf, "Access to 7 More Chapters") || strcasestr(buf, "More Chapters if you want")) return 1;
+  if (strstr(buf, "/*****") || strstr(buf, "*****\\") || strstr(buf, "/***") || strstr(buf, "***\\")) return 1;
+
+  if (strcasestr(buf, "Royal Road") && strcasestr(buf, "home of web novels")) return 1;
+  if (strcasestr(buf, "In our amazing community, you can find various talented individuals")) return 1;
+  if (strcasestr(buf, "write as a hobby or even professionally")) return 1;
+  if (strcasestr(buf, "artists who create art for them")) return 1;
+  if (strcasestr(buf, "provide valuable feedback and encouragement")) return 1;
+  if (strcasestr(buf, "stolen from Royal Road") || strcasestr(buf, "taken from Royal Road")) return 1;
+  if (strncasecmp(buf, "Bio:", 4) == 0 || strncasecmp(buf, "Bio :", 5) == 0) return 1;
+  if (strcasestr(buf, "Royal Road") && strcasestr(buf, "Bio:")) return 1;
+
+  return 0;
 }
 
 int display_chapter_content(const char* novel_title, int chapter_num, const char* html) {
@@ -227,43 +292,150 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
   int width = max_x - 4; // Margin
 
   // --- STEP 1: Extract & Clean Text ---
-  // Allocate a buffer (same size as HTML is safe)
-  char *clean_text = calloc(strlen(html) + 1, 1);
+  char *clean_text = calloc(strlen(html) * 2 + 1, 1);
   char *dst = clean_text;
-  const char *cursor = html;
 
-  while ((cursor = strstr(cursor, "id=\"chapterText\""))) {
-    // Find text content between '>' and '<'
-    const char *start = strchr(cursor, '>');
-    if (!start) break;
-    start++; // Move past '>'
+  if (strstr(html, "id=\"chapterText\"")) {
+    const char *cursor = html;
+    while ((cursor = strstr(cursor, "id=\"chapterText\""))) {
+      const char *start = strchr(cursor, '>');
+      if (!start) break;
+      start++;
 
-    const char *end = strchr(start, '<');
-    if (!end) break; // formatting error
+      const char *end = strchr(start, '<');
+      if (!end) break;
 
-    // Process this block: Collapse spaces + Decode entities
-    int space_pending = 0;
-    for (const char *p = start; p < end; p++) {
-      if (isspace(*p)) {
-        if (dst > clean_text) space_pending = 1; // Mark potential space
-      } else {
-        // If we skipped spaces previously, insert ONE space now
-        if (space_pending && *(dst-1) != '\n') *dst++ = ' ';
-        space_pending = 0;
+      int space_pending = 0;
+      for (const char *p = start; p < end; p++) {
+        if (isspace(*p)) {
+          if (dst > clean_text) space_pending = 1;
+        } else {
+          if (space_pending && *(dst-1) != '\n') *dst++ = ' ';
+          space_pending = 0;
 
-        if (*p == '&') *dst++ = decode_entity(&p);
-        else *dst++ = *p;
+          if (*p == '&') append_decoded_entity(&p, &dst);
+          else *dst++ = *p;
+        }
       }
-    }
 
-    // Add paragraph break (double newline)
-    if (dst > clean_text && *(dst-1) != '\n') {
-      *dst++ = '\n'; 
-      *dst++ = '\n';
+      if (dst > clean_text && *(dst-1) != '\n') {
+        *dst++ = '\n'; 
+        *dst++ = '\n';
+      }
+      cursor = end;
     }
-    cursor = end;
+  } else {
+    const char *containers[] = {
+      "chapter-inner chapter-content",
+      "class=\"txt \"",
+      "class=\"txt\"",
+      "id=\"article\"",
+      "class=\"entry-content\"",
+      NULL
+    };
+
+    const char *c_start = NULL;
+    for (int ci = 0; containers[ci]; ci++) {
+      c_start = strstr(html, containers[ci]);
+      if (c_start) break;
+    }
+    if (!c_start) c_start = html;
+
+    const char *p_cursor = c_start;
+    int last_was_boilerplate = 0;
+
+    while (1) {
+      const char *p_open = strstr(p_cursor, "<p");
+      if (!p_open) break;
+
+      char next_ch = p_open[2];
+      if (next_ch != '>' && next_ch != ' ' && next_ch != '\n' && next_ch != '\r') {
+        p_cursor = p_open + 2;
+        continue;
+      }
+
+      const char *gt = strchr(p_open, '>');
+      if (!gt) break;
+      const char *text_start = gt + 1;
+
+      const char *p_close = strstr(text_start, "</p>");
+      if (!p_close) break;
+
+      size_t raw_len = (size_t)(p_close - text_start);
+      char *p_buf = malloc(raw_len * 2 + 1);
+      if (!p_buf) break;
+
+      char *p_dst = p_buf;
+      int space_pending = 0;
+      int in_tag = 0;
+      const char *p_ptr = text_start;
+
+      while (p_ptr < p_close) {
+        if (*p_ptr == '<') {
+          in_tag = 1;
+        } else if (*p_ptr == '>') {
+          in_tag = 0;
+        } else if (!in_tag) {
+          if (isspace(*p_ptr)) {
+            if (p_dst > p_buf && *(p_dst - 1) != ' ') space_pending = 1;
+          } else {
+            if (space_pending && p_dst > p_buf && *(p_dst - 1) != ' ') *p_dst++ = ' ';
+            space_pending = 0;
+
+            if (*p_ptr == '&') append_decoded_entity(&p_ptr, &p_dst);
+            else *p_dst++ = *p_ptr;
+          }
+        }
+        p_ptr++;
+      }
+      *p_dst = '\0';
+
+      int is_bp = is_boilerplate_line(p_buf);
+      if (!is_bp) {
+        char *t = p_buf;
+        while (*t && isspace(*t)) t++;
+        if (strncmp(t, "---", 3) == 0 || strncmp(t, "***", 3) == 0 || strncmp(t, "/***", 4) == 0) {
+          is_bp = 1;
+        } else if (last_was_boilerplate && strcasecmp(t, "AND") == 0) {
+          is_bp = 1;
+        }
+      }
+
+      if (is_bp) {
+        last_was_boilerplate = 1;
+        if (strcasestr(p_buf, "Use arrow keys") ||
+            strcasestr(p_buf, "Please read these rules") ||
+            strcasestr(p_buf, "Site administrators") ||
+            strcasestr(p_buf, "Do not flood the comment") ||
+            strcasestr(p_buf, "Violations may result") ||
+            strcasestr(p_buf, "commenting privileges") ||
+            strcasestr(p_buf, "Update requests will not make") ||
+            strncasecmp(p_buf, "Bio:", 4) == 0 ||
+            strncasecmp(p_buf, "Bio :", 5) == 0 ||
+            (strcasestr(p_buf, "Royal Road") && strcasestr(p_buf, "home of web novels"))) {
+          free(p_buf);
+          break;
+        }
+        free(p_buf);
+        p_cursor = p_close + 4;
+        continue;
+      }
+
+      last_was_boilerplate = 0;
+      size_t plen = strlen(p_buf);
+      if (plen > 0) {
+        memcpy(dst, p_buf, plen);
+        dst += plen;
+        *dst++ = '\n';
+        *dst++ = '\n';
+      }
+      free(p_buf);
+
+      p_cursor = p_close + 4;
+    }
   }
   *dst = '\0';
+
 
   // --- STEP 2: Word Wrap into Line List ---
   int line_cap = 1000;
@@ -319,13 +491,15 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
   int scroll = 0;
   int ch = 0;
   int content_h = max_y - 4; // Reserve space for header/footer
+  int status = 0;
 
-  while (ch != 'q' && ch != KEY_LEFT) {
+  while (1) {
     clear();
 
+    int total_lines_disp = n_lines > 0 ? n_lines : 1;
     // Display header
     attron(COLOR_PAIR(4));
-    mvprintw(0, 0, "📖 %s - Chapter %d               Line %d/%d", novel_title, chapter_num, scroll + 1, n_lines - 31);
+    mvprintw(0, 0, "📖 %s - Chapter %d               Line %d/%d", novel_title, chapter_num, scroll + 1, total_lines_disp);
     attroff(COLOR_PAIR(4));
 
     attron(COLOR_PAIR(5) | A_DIM);
@@ -352,13 +526,13 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
     refresh();
     ch = getch();
 
-    if (ch == 'q' || ch == 'Q') return 0;
-    else if (ch == KEY_LEFT) return -1;
-    else if (ch == KEY_RIGHT) return 1;
+    if (ch == 'q' || ch == 'Q') { status = 0; break; }
+    else if (ch == KEY_LEFT) { status = -1; break; }
+    else if (ch == KEY_RIGHT) { status = 1; break; }
     else if (ch == KEY_UP && scroll > 0) scroll--;
     else if (ch == KEY_DOWN && scroll < n_lines - content_h) scroll++;
     else if (ch == KEY_PPAGE) scroll = (scroll - content_h > 0) ? scroll - content_h + 2: 0;
-    else if (ch == KEY_NPAGE) scroll = (scroll + content_h < n_lines - content_h) ? scroll + content_h - 2: n_lines - content_h;
+    else if (ch == KEY_NPAGE) scroll = (scroll + content_h < n_lines - content_h) ? scroll + content_h - 2: (n_lines - content_h > 0 ? n_lines - content_h : 0);
   }
 
   // Cleanup
@@ -366,5 +540,5 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
   for (int i = 0; i < n_lines; i++) free(lines[i]);
   free(lines);
 
-  return 0;
+  return status;
 }

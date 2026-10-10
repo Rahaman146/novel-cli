@@ -120,11 +120,21 @@ void show_history_menu() {
     char chapters[3500][128] = {0};
     char titles[3500][128] = {0};
 
-    // Fetch full list for the selected novel to support Prev/Next navigation
-    int total = fetch_novel_chapters(history[choice].novel_slug, chapters, titles);
+    char req_slug[256];
+    strncpy(req_slug, history[choice].novel_slug, sizeof(req_slug) - 1);
+    req_slug[sizeof(req_slug) - 1] = '\0';
+
+    if (strchr(req_slug, ':') == NULL) {
+      if (strncmp(req_slug, "/fiction/", 9) == 0) {
+        snprintf(req_slug, sizeof(req_slug), "royalroad:%.240s", history[choice].novel_slug);
+      } else if (strncmp(req_slug, "/novel/", 7) == 0) {
+        snprintf(req_slug, sizeof(req_slug), "freewebnovel:%.240s", history[choice].novel_slug);
+      }
+    }
+
+    int total = fetch_novel_chapters(req_slug, chapters, titles);
 
     int start_idx = history[choice].chapter_num - 1;
-    // Jump straight to the browser at the correct chapter
-    show_chapter_browser(chapters, titles, total, history[choice].novel_title, history[choice].novel_slug, start_idx);
+    show_chapter_browser(chapters, titles, total, history[choice].novel_title, req_slug, start_idx);
   }
 }

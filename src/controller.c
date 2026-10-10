@@ -154,13 +154,13 @@ FILE* select_main_menu(int choice, char* main_options[], int size_main_options) 
     search_webnovel(); 
     return NULL;
   }
-  if(choice == 3){ 
+  if(choice == 3){
     show_history_menu();
     return NULL;
   }
-  if(choice == 4){ 
-    endwin(); 
-    exit(0); 
+  if(choice == 4){
+    endwin();
+    exit(0);
   }
   return NULL;
 }

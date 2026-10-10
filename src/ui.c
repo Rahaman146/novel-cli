@@ -154,15 +154,20 @@ int display_webnovel_list(
 
       int idx = filtered[i];
 
+      char full_str[512];
+      char trunc_str[512];
+      snprintf(full_str, sizeof(full_str), "%s (Views:%s | Ch:%s | Rating:%s)", title[idx], yearly_views[idx], chapters[idx], ratings[idx]);
+      truncate_with_ellipsis(trunc_str, full_str, cols > 6 ? cols - 6 : 40);
+
       if (i == highlight) {
         attron(COLOR_PAIR(5));
         mvprintw(row, 0, "▌");
         mvprintw(row, 1, "%d", 12*(*current_page - 1) + i + 1);
-        mvprintw(row, 5, "%s (Views:%s | Ch:%s | Rating:%s)", title[idx], yearly_views[idx], chapters[idx], ratings[idx]);
+        mvprintw(row, 5, "%s", trunc_str);
         attroff(COLOR_PAIR(5));
       } else {
         mvprintw(row, 1, "%d", 12*(*current_page - 1) + i + 1);
-        mvprintw(row, 5, "%s (Views:%s | Ch:%s | Rating:%s)", title[idx], yearly_views[idx], chapters[idx], ratings[idx]);
+        mvprintw(row, 5, "%s", trunc_str);
       }
 
       row++;
