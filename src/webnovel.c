@@ -70,6 +70,74 @@ static void decode_title_entities(char *str) {
 int extract_novel_info(char *html, char titles[12][256], char yearly_views[12][256], char chapters[12][256], char ratings[12][256], char slugs[12][256]) {
   int count = 0;
 
+  char *script_start = strstr(html, "<script id=\"__NEXT_DATA__\" type=\"application/json\">");
+  if (script_start) {
+    script_start += strlen("<script id=\"__NEXT_DATA__\" type=\"application/json\">");
+    char *script_end = strstr(script_start, "</script>");
+    if (script_end) {
+      int json_len = script_end - script_start;
+      char *json_buf = malloc(json_len + 1);
+      if (json_buf) {
+        strncpy(json_buf, script_start, json_len);
+        json_buf[json_len] = '\0';
+
+        cJSON *root = cJSON_Parse(json_buf);
+        if (root) {
+          cJSON *props = cJSON_GetObjectItemCaseSensitive(root, "props");
+          cJSON *pageProps = cJSON_GetObjectItemCaseSensitive(props, "pageProps");
+          cJSON *result = cJSON_GetObjectItemCaseSensitive(pageProps, "result");
+          if (!result) result = pageProps;
+
+          cJSON *items = cJSON_GetObjectItemCaseSensitive(result, "items");
+          if (items && cJSON_IsArray(items)) {
+            int size = cJSON_GetArraySize(items);
+            for (int i = 0; i < size && count < 12; i++) {
+              cJSON *item = cJSON_GetArrayItem(items, i);
+              cJSON *title_item = cJSON_GetObjectItemCaseSensitive(item, "title");
+              cJSON *slug_item = cJSON_GetObjectItemCaseSensitive(item, "slug");
+              cJSON *views_item = cJSON_GetObjectItemCaseSensitive(item, "viewsTotal");
+              cJSON *ch_item = cJSON_GetObjectItemCaseSensitive(item, "chapterCount");
+              cJSON *rating_item = cJSON_GetObjectItemCaseSensitive(item, "ratingAvg");
+
+              if (title_item && cJSON_IsString(title_item) && title_item->valuestring) {
+                strncpy(titles[count], title_item->valuestring, 255);
+                titles[count][255] = '\0';
+                decode_title_entities(titles[count]);
+              }
+              if (slug_item && cJSON_IsString(slug_item) && slug_item->valuestring) {
+                strncpy(slugs[count], slug_item->valuestring, 255);
+                slugs[count][255] = '\0';
+              }
+              if (rating_item && cJSON_IsNumber(rating_item) && rating_item->valuedouble > 0) {
+                snprintf(ratings[count], 256, "%.2f", rating_item->valuedouble);
+              } else {
+                strcpy(ratings[count], "N/A");
+              }
+              if (ch_item && cJSON_IsNumber(ch_item) && ch_item->valueint > 0) {
+                snprintf(chapters[count], 256, "%d Ch", ch_item->valueint);
+              } else {
+                strcpy(chapters[count], "N/A");
+              }
+              if (views_item && cJSON_IsNumber(views_item) && views_item->valuedouble > 0) {
+                double v = views_item->valuedouble;
+                if (v >= 1000000.0) snprintf(yearly_views[count], 256, "%.1fM Views", v / 1000000.0);
+                else if (v >= 1000.0) snprintf(yearly_views[count], 256, "%.0fk Views", v / 1000.0);
+                else snprintf(yearly_views[count], 256, "%.0f Views", v);
+              } else {
+                strcpy(yearly_views[count], "N/A");
+              }
+              count++;
+            }
+          }
+          cJSON_Delete(root);
+        }
+        free(json_buf);
+      }
+    }
+  }
+
+  if (count > 0) return count;
+
   char *card_pos = html;
   while (count < 12) {
     char *slug_pos = strstr(card_pos, "/novel/");

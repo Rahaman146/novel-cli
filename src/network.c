@@ -257,6 +257,85 @@ static int fetch_royalroad_chapters(const char* slug, char chapters[3500][128], 
   return count;
 }
 
+static int fetch_wuxia_chapters(const char* slug, char chapters[3500][128], char chapter_titles[3500][128]) {
+  const char *raw_slug = slug;
+  if (strncmp(raw_slug, "wuxia:", 6) == 0) raw_slug += 6;
+  if (strncmp(raw_slug, "/novel/", 7) == 0) raw_slug += 7;
+
+  int count = 0;
+  int current_page = 1;
+
+  while (count < 3500 && current_page <= 50) {
+    char url[512];
+    snprintf(url, sizeof(url), "https://wuxia.click/novel/%s?page=%d", raw_slug, current_page);
+
+    char *html = fetch_url(url);
+    if (!html) break;
+
+    int page_added = 0;
+    char *script_start = strstr(html, "<script id=\"__NEXT_DATA__\" type=\"application/json\">");
+    if (script_start) {
+      script_start += strlen("<script id=\"__NEXT_DATA__\" type=\"application/json\">");
+      char *script_end = strstr(script_start, "</script>");
+      if (script_end) {
+        int json_len = script_end - script_start;
+        char *json_buf = malloc(json_len + 1);
+        if (json_buf) {
+          strncpy(json_buf, script_start, json_len);
+          json_buf[json_len] = '\0';
+
+          cJSON *root = cJSON_Parse(json_buf);
+          if (root) {
+            cJSON *props = cJSON_GetObjectItemCaseSensitive(root, "props");
+            cJSON *pageProps = cJSON_GetObjectItemCaseSensitive(props, "pageProps");
+            cJSON *toc = cJSON_GetObjectItemCaseSensitive(pageProps, "toc");
+            cJSON *items = toc ? cJSON_GetObjectItemCaseSensitive(toc, "items") : NULL;
+
+            if (items && cJSON_IsArray(items)) {
+              int size = cJSON_GetArraySize(items);
+              for (int i = 0; i < size && count < 3500; i++) {
+                cJSON *item = cJSON_GetArrayItem(items, i);
+                cJSON *num_item = cJSON_GetObjectItemCaseSensitive(item, "number");
+                cJSON *title_item = cJSON_GetObjectItemCaseSensitive(item, "title");
+
+                if (title_item && cJSON_IsString(title_item) && title_item->valuestring) {
+                  strncpy(chapter_titles[count], title_item->valuestring, 127);
+                  chapter_titles[count][127] = '\0';
+                } else {
+                  snprintf(chapter_titles[count], 128, "Chapter %d", count + 1);
+                }
+
+                if (num_item && cJSON_IsNumber(num_item)) {
+                  if (num_item->valuedouble == (double)num_item->valueint) {
+                    snprintf(chapters[count], 128, "%s-%d", raw_slug, num_item->valueint);
+                  } else {
+                    snprintf(chapters[count], 128, "%s-%.2f", raw_slug, num_item->valuedouble);
+                  }
+                } else if (num_item && cJSON_IsString(num_item) && num_item->valuestring) {
+                  snprintf(chapters[count], 128, "%s-%s", raw_slug, num_item->valuestring);
+                } else {
+                  snprintf(chapters[count], 128, "%s-%d", raw_slug, count + 1);
+                }
+
+                count++;
+                page_added++;
+              }
+            }
+            cJSON_Delete(root);
+          }
+          free(json_buf);
+        }
+      }
+    }
+
+    free(html);
+    if (page_added == 0) break;
+    current_page++;
+  }
+
+  return count;
+}
+
 char* fetch_chapter_content(const char* chapter_slug)
 {
   if (strncmp(chapter_slug, "freewebnovel:", 13) == 0 || strncmp(chapter_slug, "/novel/", 7) == 0) {
@@ -283,7 +362,11 @@ char* fetch_chapter_content(const char* chapter_slug)
     return fetch_url(url);
   } else {
     char url[512];
-    snprintf(url, sizeof(url), "https://wuxia.click/chapter/%s", chapter_slug);
+    if (strncmp(chapter_slug, "http://", 7) == 0 || strncmp(chapter_slug, "https://", 8) == 0) {
+      snprintf(url, sizeof(url), "%s", chapter_slug);
+    } else {
+      snprintf(url, sizeof(url), "https://wuxia.click/chapter/%s", chapter_slug);
+    }
     return fetch_url(url);
   }
 }
@@ -295,50 +378,7 @@ int fetch_novel_chapters(const char* slug, char chapters[3500][128],char chapter
   } else if (strncmp(slug, "royalroad:", 10) == 0 || strncmp(slug, "/fiction/", 9) == 0) {
     return fetch_royalroad_chapters(slug, chapters, chapter_titles);
   } else {
-    char url[512];
-    snprintf(url, sizeof(url), "https://wuxiaworld.eu/api/chapters/%s/", slug);
-
-    char* json_data = fetch_url(url);
-    if (!json_data) return 0;
-
-    cJSON* root = cJSON_Parse(json_data);
-    if (!root) {
-      free(json_data);
-      return 0;
-    }
-
-    int count = 0;
-
-    if (cJSON_IsArray(root)) {
-      int size = cJSON_GetArraySize(root);
-
-      for (int i = 0; i < size && count < 3500; i++) {
-        cJSON* item = cJSON_GetArrayItem(root, i);
-        cJSON* title_field = cJSON_GetObjectItem(item, "title");
-
-        if (cJSON_IsString(title_field) && title_field->valuestring) {
-          strncpy(chapter_titles[count],
-                  title_field->valuestring,
-                  255);
-          chapter_titles[count][255] = '\0';
-        }
-        cJSON* slug_field = cJSON_GetObjectItem(item, "novSlugChapSlug");
-
-        if (cJSON_IsString(slug_field) && slug_field->valuestring) {
-          strncpy(chapters[count],
-                  slug_field->valuestring,
-                  127);
-
-          chapters[count][127] = '\0';
-          count++;
-        }
-      }
-    }
-
-    cJSON_Delete(root);
-    free(json_data);
-
-    return count;
+    return fetch_wuxia_chapters(slug, chapters, chapter_titles);
   }
 }
 

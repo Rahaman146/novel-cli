@@ -295,7 +295,52 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
   char *clean_text = calloc(strlen(html) * 2 + 1, 1);
   char *dst = clean_text;
 
-  if (strstr(html, "id=\"chapterText\"")) {
+  const char *script_start = strstr(html, "<script id=\"__NEXT_DATA__\" type=\"application/json\">");
+  if (script_start) {
+    script_start += strlen("<script id=\"__NEXT_DATA__\" type=\"application/json\">");
+    const char *script_end = strstr(script_start, "</script>");
+    if (script_end) {
+      int json_len = script_end - script_start;
+      char *json_buf = malloc(json_len + 1);
+      if (json_buf) {
+        strncpy(json_buf, script_start, json_len);
+        json_buf[json_len] = '\0';
+
+        cJSON *root = cJSON_Parse(json_buf);
+        if (root) {
+          cJSON *props = cJSON_GetObjectItemCaseSensitive(root, "props");
+          cJSON *pageProps = cJSON_GetObjectItemCaseSensitive(props, "pageProps");
+          cJSON *data = cJSON_GetObjectItemCaseSensitive(pageProps, "data");
+          if (!data) data = pageProps;
+
+          cJSON *ch = cJSON_GetObjectItemCaseSensitive(data, "chapter");
+          cJSON *paragraphs = ch ? cJSON_GetObjectItemCaseSensitive(ch, "paragraphs") : NULL;
+
+          if (paragraphs && cJSON_IsArray(paragraphs)) {
+            int p_size = cJSON_GetArraySize(paragraphs);
+            for (int i = 0; i < p_size; i++) {
+              cJSON *p_item = cJSON_GetArrayItem(paragraphs, i);
+              if (p_item && cJSON_IsString(p_item) && p_item->valuestring) {
+                const char *s = p_item->valuestring;
+                if (!is_boilerplate_line(s)) {
+                  size_t len = strlen(s);
+                  memcpy(dst, s, len);
+                  dst += len;
+                  *dst++ = '\n';
+                  *dst++ = '\n';
+                }
+              }
+            }
+          }
+          cJSON_Delete(root);
+        }
+        free(json_buf);
+      }
+    }
+  }
+
+  if (dst == clean_text) {
+    if (strstr(html, "id=\"chapterText\"")) {
     const char *cursor = html;
     while ((cursor = strstr(cursor, "id=\"chapterText\""))) {
       const char *start = strchr(cursor, '>');
@@ -433,6 +478,7 @@ int display_chapter_content(const char* novel_title, int chapter_num, const char
 
       p_cursor = p_close + 4;
     }
+  }
   }
   *dst = '\0';
 
