@@ -1,15 +1,12 @@
-#define _GNU_SOURCE
-
+#include "platform.h"
 #include "network.h"
 #include "chapter_controller.h"
 #include "history.h"
 
 #include <stdlib.h>
 #include <string.h>
-#include <strings.h>
 #include <curl/curl.h>
 #include <cjson/cJSON.h>
-#include <ncurses.h>
 #include <ctype.h>
 
 /**

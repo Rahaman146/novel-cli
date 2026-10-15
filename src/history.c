@@ -1,5 +1,4 @@
-#define _POSIX_C_SOURCE 200809L
-
+#include "platform.h"
 #include "history.h"
 #include "chapter_controller.h"
 #include "network.h"
@@ -8,8 +7,6 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <ncurses.h>
-#include <limits.h>
 
 void save_to_history(const char* n_title, const char* c_title,
                      const char* c_slug, const char* n_slug, int c_num) {

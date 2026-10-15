@@ -1,5 +1,4 @@
-#define _POSIX_C_SOURCE 200809L
-
+#include "platform.h"
 #include "library.h"
 #include "ui.h"
 #include "controller.h"
@@ -7,9 +6,6 @@
 #include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
-#include <ncurses.h>
-#include <limits.h>
 
 void open_library() {
   char lib_path[PATH_MAX];

@@ -1,3 +1,4 @@
+#include "platform.h"
 #include "network.h"
 #include "controller.h"
 #include "webnovel.h"

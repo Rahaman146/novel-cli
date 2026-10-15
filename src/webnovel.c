@@ -1,5 +1,4 @@
-#define _GNU_SOURCE
-
+#include "platform.h"
 #include "webnovel.h"
 #include "network.h"
 #include "ui.h"
@@ -11,7 +10,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <ncurses.h>
 
 #define MAX_RESULTS 300
 #define MAX_PAGES 50

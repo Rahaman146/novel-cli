@@ -2,10 +2,17 @@
 CC = gcc
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -std=c11
+CFLAGS = -Wall -Wextra -std=c11 -Isrc
 
-# Libraries
-LIBS = -lncurses -lcurl -lcjson
+# Platform-specific settings
+ifeq ($(OS),Windows_NT)
+    TARGET = novel-cli.exe
+    CFLAGS += -DPDC_WIDE -DPDC_FORCE_UTF8 -I/mingw64/include/pdcurses -I/ucrt64/include/pdcurses
+    LIBS = -lpdcurses_wincon -lcurl -lcjson -lws2_32 -lwinmm
+else
+    TARGET = novel-cli
+    LIBS = -lncurses -lcurl -lcjson
+endif
 
 # Installation directories
 PREFIX = /usr/local
@@ -22,9 +29,6 @@ SRC = $(SRCDIR)/main.c $(SRCDIR)/ui.c $(SRCDIR)/chapter_controller.c $(SRCDIR)/c
 OBJDIR = build
 # Object files
 OBJ = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
-
-# Output binary
-TARGET = novel-cli
 
 # Default target
 all: $(TARGET)
@@ -79,6 +83,10 @@ deps-fedora:
 deps-macos:
 	brew install ncurses curl cjson
 
+# Install dependencies (Windows with MSYS2 MinGW64)
+deps-msys2:
+	pacman -S --noconfirm mingw-w64-x86_64-toolchain mingw-w64-x86_64-pdcurses mingw-w64-x86_64-curl mingw-w64-x86_64-cjson
+
 # Help target
 help:
 	@echo "Available targets:"
@@ -94,8 +102,9 @@ help:
 	@echo "  make deps-debian  - Install deps (Ubuntu/Debian)"
 	@echo "  make deps-fedora  - Install deps (Fedora/RHEL)"
 	@echo "  make deps-macos   - Install deps (macOS)"
+	@echo "  make deps-msys2   - Install deps (Windows - MSYS2)"
 	@echo ""
 	@echo "Quick install (recommended):"
 	@echo "  chmod +x install.sh && ./install.sh"
 
-.PHONY: all clean re install uninstall deps-arch deps-pacman deps-debian deps-fedora deps-macos help
+.PHONY: all clean re install uninstall deps-arch deps-pacman deps-debian deps-fedora deps-macos deps-msys2 help

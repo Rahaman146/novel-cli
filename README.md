@@ -41,6 +41,31 @@ make
 sudo make install
 ```
 
+**Windows (MSYS2 / MinGW-w64):**
+
+> **Tip:** For the best experience with full UTF-8 emojis and colors, run in **Windows Terminal**.
+
+1. Open the **MSYS2 MINGW64** terminal.
+2. Install the required dependencies:
+```bash
+pacman -S mingw-w64-x86_64-toolchain mingw-w64-x86_64-pdcurses mingw-w64-x86_64-curl mingw-w64-x86_64-cjson
+```
+3. Build using Make or CMake:
+```bash
+# Using Makefile
+make -f Makefile.win
+
+# Or using CMake
+cmake -B build
+cmake --build build
+```
+4. Run:
+```bash
+./novel-cli.exe
+```
+
+Pre-built Windows binaries are also available from GitHub Actions / Releases.
+
 ## Usage
 
 ```bash

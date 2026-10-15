@@ -1,17 +1,13 @@
-#define _POSIX_C_SOURCE 200809L
-#define _GNU_SOURCE
-
+#include "platform.h"
 #include "ui.h"
 #include "controller.h"
 
 #include <stdlib.h>
 #include <string.h>
-#include <ncurses.h>
 #include <locale.h>
 #include <ctype.h>
 #include <math.h>
 #include <dirent.h>
-#include <sys/stat.h>
 
 #define MAX_LINE 1024
 #define ITEMS_PER_PAGE 12

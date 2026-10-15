@@ -1,4 +1,5 @@
 #define _XOPEN_SOURCE_EXTENDED 1
+#include "platform.h"
 #include <locale.h>
 
 #include "ui.h"
@@ -12,12 +13,11 @@
 #include <string.h>
 #include <curl/curl.h>
 #include <cjson/cJSON.h>
-#include <ncurses.h>
-#include <locale.h>
 #include <dirent.h>
 #include <sys/stat.h>
 
 int main() {
+  platform_init();
   setlocale(LC_ALL, "");
   curl_global_init(CURL_GLOBAL_ALL);
 
@@ -31,10 +31,17 @@ int main() {
 
     init_pair(1, -1, -1);            
     init_pair(2, COLOR_CYAN, -1);     
-    init_pair(3, 187, -1);    // light yellow
-    init_pair(4, 153, -1);     // light blue
-    init_pair(5, 218, -1);     // light pink
-    init_pair(6, -1, 237); 
+    if (COLORS >= 256) {
+      init_pair(3, 187, -1);    // light yellow
+      init_pair(4, 153, -1);     // light blue
+      init_pair(5, 218, -1);     // light pink
+      init_pair(6, -1, 237); 
+    } else {
+      init_pair(3, COLOR_YELLOW, -1);
+      init_pair(4, COLOR_CYAN, -1);
+      init_pair(5, COLOR_MAGENTA, -1);
+      init_pair(6, -1, COLOR_BLACK);
+    }
     bkgd(COLOR_PAIR(1)); 
   }
 

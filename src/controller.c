@@ -6,19 +6,25 @@
 #include "webnovel.h"
 #include "history.h"
 
+#include "platform.h"
 #include <stdlib.h>
 #include <string.h>
 #include <curl/curl.h>
 #include <cjson/cJSON.h>
-#include <ncurses.h>
-#include <sys/stat.h>
-#include <unistd.h>
 
 void get_user_path(char *dest, const char *subfolder, size_t size) {
+#ifdef _WIN32
+  const char *appdata = getenv("APPDATA");
+  if (!appdata) appdata = getenv("USERPROFILE");
+  if (!appdata) appdata = ".";
+
+  snprintf(dest, size, "%s/novel-cli/%s", appdata, subfolder);
+#else
   const char *home = getenv("HOME");
   if (!home) home = "."; // Fallback to current dir
 
   snprintf(dest, size, "%s/.local/share/novel-cli/%s", home, subfolder);
+#endif
 
   // Create the directory if it doesn't exist
   mkdir_p(dest); 
@@ -32,15 +38,31 @@ void mkdir_p(const char *path) {
 
   snprintf(tmp, sizeof(tmp), "%s", path);
   len = strlen(tmp);
-  if (tmp[len - 1] == '/') tmp[len - 1] = 0;
-  for (p = tmp + 1; *p; p++) {
-    if (*p == '/') {
+  if (len == 0) return;
+  if (tmp[len - 1] == '/' || tmp[len - 1] == '\\') tmp[len - 1] = 0;
+
+  p = tmp;
+  if (p[0] && p[1] == ':') {
+    p += 2; // Skip drive letter on Windows (e.g. C:)
+  }
+
+  for (p = p + 1; *p; p++) {
+    if (*p == '/' || *p == '\\') {
+      char slash = *p;
       *p = 0;
+#ifdef _WIN32
+      _mkdir(tmp);
+#else
       mkdir(tmp, 0755);
-      *p = '/';
+#endif
+      *p = slash;
     }
   }
+#ifdef _WIN32
+  _mkdir(tmp);
+#else
   mkdir(tmp, 0755);
+#endif
 }
 
 FILE* select_main_menu(int choice, char* main_options[], int size_main_options) {

@@ -2,7 +2,7 @@
 #define CHAPTER_CONTROLLER_H
 
 #include <stdio.h>
-#include <ncurses.h>
+#include "platform.h"
 
 #define CHAPTERS_VISIBLE 15
 #define CHAPTER_WINDOW_HEIGHT 15

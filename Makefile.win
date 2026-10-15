@@ -1,0 +1,29 @@
+# Windows Makefile for novel-cli (MSYS2 / MinGW-w64)
+# Build instructions:
+#   In MSYS2 MINGW64 / UCRT64 terminal:
+#     pacman -S mingw-w64-x86_64-toolchain mingw-w64-x86_64-pdcurses mingw-w64-x86_64-curl mingw-w64-x86_64-cjson
+#     make -f Makefile.win
+
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c11 -Isrc -DPDC_WIDE -DPDC_FORCE_UTF8 -I/mingw64/include/pdcurses -I/ucrt64/include/pdcurses
+LIBS = -lpdcurses_wincon -lcurl -lcjson -lws2_32 -lwinmm
+
+SRCDIR = src
+SRC = $(SRCDIR)/main.c $(SRCDIR)/ui.c $(SRCDIR)/chapter_controller.c $(SRCDIR)/controller.c $(SRCDIR)/network.c $(SRCDIR)/cache.c $(SRCDIR)/library.c $(SRCDIR)/webnovel.c $(SRCDIR)/history.c
+
+TARGET = novel-cli.exe
+
+all: $(TARGET)
+
+$(TARGET): $(SRC)
+	$(CC) $(CFLAGS) $(SRC) -o $(TARGET) $(LIBS)
+
+clean:
+	@rm -f $(TARGET) build/*.o 2>/dev/null || del /Q $(TARGET) 2>nul || true
+
+re: clean all
+
+deps:
+	pacman -S --noconfirm mingw-w64-x86_64-toolchain mingw-w64-x86_64-pdcurses mingw-w64-x86_64-curl mingw-w64-x86_64-cjson
+
+.PHONY: all clean re deps
